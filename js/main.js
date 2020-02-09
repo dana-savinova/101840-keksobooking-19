@@ -78,26 +78,27 @@ var getRandomPosition = function (min, max) {
 
 // функция для создания объекта для объявления
 var createOffer = function (number) {
-  return {'author': {
-    'avatar': getAvatar(number)
-  },
-  'offer': {
-    'title': 'описание',
-    'address': 0,
-    'price': 4000,
-    'type': getRandomElement(HOUSE_TYPES),
-    'rooms': getRandomElement(HOUSE_ROOMS),
-    'guests': getRandomElement(NUMBER_GUESTS),
-    'checkin': getRandomElement(OFFER_TIMES),
-    'checkout': getRandomElement(OFFER_TIMES),
-    'features': getArrayRandomLength(getShuffleArray(HOUSE_FEATURES)),
-    'description': getRandomElement(OFFER_DESCRIPTIONS),
-    'photos': getArrayRandomLength(getShuffleArray(OFFER_PHOTOS)),
-  },
-  'location': {
-    'x': getRandomPosition(MIN_X, MAX_X),
-    'y': getRandomPosition(MIN_Y, MAX_Y)
-  }
+  return {
+    'author': {
+      'avatar': getAvatar(number)
+    },
+    'offer': {
+      'title': 'описание',
+      'address': 0,
+      'price': 4000,
+      'type': getRandomElement(HOUSE_TYPES),
+      'rooms': getRandomElement(HOUSE_ROOMS),
+      'guests': getRandomElement(NUMBER_GUESTS),
+      'checkin': getRandomElement(OFFER_TIMES),
+      'checkout': getRandomElement(OFFER_TIMES),
+      'features': getArrayRandomLength(getShuffleArray(HOUSE_FEATURES)),
+      'description': getRandomElement(OFFER_DESCRIPTIONS),
+      'photos': getArrayRandomLength(getShuffleArray(OFFER_PHOTOS)),
+    },
+    'location': {
+      'x': getRandomPosition(MIN_X, MAX_X),
+      'y': getRandomPosition(MIN_Y, MAX_Y)
+    }
   };
 };
 
