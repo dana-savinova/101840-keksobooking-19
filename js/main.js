@@ -4,22 +4,24 @@ var HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalo'];
 var HOUSE_ROOMS = [1, 2, 3];
 var NUMBER_GUESTS = [0, 1, 2, 3];
 var HOUSE_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-
-
-var offersNumber = 8;
-var map = document.querySelector('.map');
-var mapPins = document.querySelector('.map__pins');
-var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-var offerDescription = ['Уютный домик', 'Просторное жилище', 'Фото места'];
-var offerPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var offerTime = ['12:00', '13:00', '14:00'];
+var OFFER_DESCRIPTIONS = ['Уютный домик', 'Просторное жилище', 'Фото места'];
+var OFFER_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var OFFER_TIMES = ['12:00', '13:00', '14:00'];
+var OFFERS_NUMBER = 8;
 
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 
-var MIN_Y = 130 - PIN_HEIGHT;
-var MAX_Y = 630 - PIN_HEIGHT;
+
+var TOP_BORDER_Y = 130;
+var BOTTOM_BORDER_Y = 630;
+var MIN_Y = TOP_BORDER_Y - PIN_HEIGHT;
+var MAX_Y = BOTTOM_BORDER_Y - PIN_HEIGHT;
 var MIN_X = 0 + PIN_WIDTH / 2;
+
+var map = document.querySelector('.map');
+var mapPins = document.querySelector('.map__pins');
+var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 // функция для получение размера элемента
 var getElementWidth = function (element) {
@@ -60,11 +62,11 @@ var createOffer = function (number) {
     'type': getRandomElement(HOUSE_TYPES),
     'rooms': getRandomElement(HOUSE_ROOMS),
     'guests': getRandomElement(NUMBER_GUESTS),
-    'checkin': getRandomElement(offerTime),
-    'checkout': getRandomElement(offerTime),
+    'checkin': getRandomElement(OFFER_TIMES),
+    'checkout': getRandomElement(OFFER_TIMES),
     'features': getRandomElement(HOUSE_FEATURES),
-    'description': getRandomElement(offerDescription),
-    'photos': getRandomElement(offerPhotos),
+    'description': getRandomElement(OFFER_DESCRIPTIONS),
+    'photos': getRandomElement(OFFER_PHOTOS),
   },
   'location': {
     'x': getRandomPosition(MIN_X, MAX_X),
@@ -106,4 +108,4 @@ var renderSimmiliarOffers = function (offers) {
   mapPins.appendChild(fragment);
 };
 
-renderSimmiliarOffers(createSimmiliarOffer(offersNumber));
+renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
