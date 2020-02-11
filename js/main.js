@@ -84,7 +84,7 @@ var createOffer = function (number) {
     },
     'offer': {
       'title': 'описание',
-      'address': 0,
+      'address': '600, 350',
       'price': getRandomIntInclusive(0, 4000),
       'type': getRandomElement(HOUSE_TYPES),
       'rooms': getRandomElement(HOUSE_ROOMS),
