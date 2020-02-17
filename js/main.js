@@ -2,6 +2,12 @@
 
 // данные для объявления
 var HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalo'];
+var HOUSE_MIN_PRICES = {
+  'bungalo': 0,
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000
+};
 var HOUSE_ROOMS = [1, 2, 3];
 var NUMBER_GUESTS = [0, 1, 2, 3];
 var HOUSE_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -124,9 +130,6 @@ var renderOfferItem = function (offer) {
   return offerElement;
 };
 
-// временно переводим карту из неактивного состояния в активное
-map.classList.remove('map--faded');
-
 // вставляем пины
 var renderSimmiliarOffers = function (offers) {
   var fragment = document.createDocumentFragment();
@@ -138,4 +141,113 @@ var renderSimmiliarOffers = function (offers) {
   mapPins.appendChild(fragment);
 };
 
-renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
+// renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
+
+// работа с формой (потом будет вынесена в отдельный модуль, потому переменные тут для простоты копирования))
+var adForm = document.querySelector('.ad-form');
+var adFormFields = adForm.querySelectorAll('fieldset');
+var filtersForm = document.querySelector('.map__filters');
+var filtersFormFields = filtersForm.querySelectorAll('fieldset');
+
+var mapPinMain = document.querySelector('.map__pin--main');
+
+var adFormAddress = adForm.querySelector('#address');
+var adFormPrice = adForm.querySelector('#price');
+var adFormType = adForm.querySelector('#type');
+var adFormTimeGroup = adForm.querySelector('.ad-form__element--time');
+var adFormTimeIn = adForm.querySelector('#timein');
+var adFormTimeOut = adForm.querySelector('#timeout');
+
+var deactivateFields = function (formFields) {
+  for (var i = 0; i < formFields.length; i++) {
+    formFields[i].setAttribute('disabled', '');
+  }
+};
+
+var activateFields = function (formFields) {
+  for (var i = 0; i < formFields.length; i++) {
+    formFields[i].removeAttribute('disabled');
+  }
+};
+
+var deactivateForm = function () {
+  deactivateFields(adFormFields);
+  deactivateFields(filtersFormFields);
+};
+
+var activateForm = function () {
+  activateFields(adFormFields);
+  activateFields(filtersFormFields);
+};
+
+var activatePage = function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
+  activateForm();
+  mapPinMain.removeEventListener('mouseup', OnMapPinMainClick);
+};
+
+var getMapPinMainCoordinates = function () {
+  return {
+    x: mapPinMain.offsetLeft,
+    y: mapPinMain.offsetTop
+  };
+};
+
+var setAdFormAddress = function (coordinates) {
+  adFormAddress.value = coordinates.x + ', ' + coordinates.y;
+};
+
+var OnMapPinMainClick = function () {
+  activatePage();
+};
+
+var resetState = function () {
+  deactivateForm();
+  setAdFormAddress(getMapPinMainCoordinates());
+
+  mapPinMain.addEventListener('mouseup', OnMapPinMainClick);
+};
+
+resetState();
+
+// валидация формы
+// Вспомогательная функция для изменения минимального значение поля цены
+var changeMinPrice = function (value) {
+  adFormPrice.setAttribute('min', value);
+  adFormPrice.setAttribute('placeholder', value);
+};
+
+// Изменяет цену
+var OnPriceChange = function (evt) {
+  var value = evt.target.value;
+  switch (value) {
+    case 'bungalo':
+      changeMinPrice(HOUSE_MIN_PRICES.bungalo);
+      break;
+    case 'flat':
+      changeMinPrice(HOUSE_MIN_PRICES.flat);
+      break;
+    case 'house':
+      changeMinPrice(HOUSE_MIN_PRICES.house);
+      break;
+    case 'palace':
+      changeMinPrice(HOUSE_MIN_PRICES.palace);
+      break;
+  }
+};
+
+adFormType.addEventListener('change', OnPriceChange);
+
+// Время въезда и выезда
+var OnTimeChange = function (evt) {
+  var target = evt.target;
+  if (target === adFormTimeIn) {
+    adFormTimeOut.value = target.value;
+  } else {
+    adFormTimeIn.value = target.value;
+  }
+};
+
+adFormTimeGroup.addEventListener('change', OnTimeChange);
