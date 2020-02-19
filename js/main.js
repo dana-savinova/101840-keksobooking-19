@@ -143,7 +143,7 @@ var renderSimmiliarOffers = function (offers) {
 
 // renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
 
-// работа с формой (потом будет вынесена в отдельный модуль, потому переменные тут для простоты копирования))
+// потом будет вынесено в отдельный модуль, потому переменные тут для простоты копирования))
 var adForm = document.querySelector('.ad-form');
 var adFormFields = adForm.querySelectorAll('fieldset');
 var filtersForm = document.querySelector('.map__filters');
@@ -185,7 +185,7 @@ var activatePage = function () {
   adForm.classList.remove('ad-form--disabled');
   renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
   activateForm();
-  mapPinMain.removeEventListener('mouseup', OnMapPinMainClick);
+  mapPinMain.removeEventListener('click', onMapPinMainClick);
 };
 
 var getMapPinMainCoordinates = function () {
@@ -199,7 +199,7 @@ var setAdFormAddress = function (coordinates) {
   adFormAddress.value = coordinates.x + ', ' + coordinates.y;
 };
 
-var OnMapPinMainClick = function () {
+var onMapPinMainClick = function () {
   activatePage();
 };
 
@@ -207,7 +207,7 @@ var resetState = function () {
   deactivateForm();
   setAdFormAddress(getMapPinMainCoordinates());
 
-  mapPinMain.addEventListener('mouseup', OnMapPinMainClick);
+  mapPinMain.addEventListener('click', onMapPinMainClick);
 };
 
 resetState();
@@ -220,7 +220,7 @@ var changeMinPrice = function (value) {
 };
 
 // Изменяет цену
-var OnPriceChange = function (evt) {
+var onPriceChange = function (evt) {
   var value = evt.target.value;
   switch (value) {
     case 'bungalo':
@@ -238,10 +238,10 @@ var OnPriceChange = function (evt) {
   }
 };
 
-adFormType.addEventListener('change', OnPriceChange);
+adFormType.addEventListener('change', onPriceChange);
 
 // Время въезда и выезда
-var OnTimeChange = function (evt) {
+var onTimeChange = function (evt) {
   var target = evt.target;
   if (target === adFormTimeIn) {
     adFormTimeOut.value = target.value;
@@ -250,4 +250,4 @@ var OnTimeChange = function (evt) {
   }
 };
 
-adFormTimeGroup.addEventListener('change', OnTimeChange);
+adFormTimeGroup.addEventListener('change', onTimeChange);
