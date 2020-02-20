@@ -256,3 +256,24 @@ adFormTimeGroup.addEventListener('change', onTimeChange);
 // Количество комнат и гостей
 var adFormRooms = adForm.querySelector('#room_number');
 var adFormGuests = adForm.querySelector('#capacity');
+
+// Обработчик изменения селекта room
+var onRoomNumChange = function () {
+  var guests = parseInt(adFormGuests.value, 10);
+  var rooms = parseInt(adFormRooms.value, 10);
+
+  if (rooms === 1 && guests !== 1) {
+    adFormRooms.setCustomValidity('Только для одного человека');
+  } else if (rooms === 2 && (guests < 1 || guests > 2)) {
+    adFormRooms.setCustomValidity('Не больше двух человек');
+  } else if (rooms === 3 && (guests < 1 || guests > 3)) {
+    adFormRooms.setCustomValidity('Не больше трех человек');
+  } else if (rooms === 100 && guests !== 0) {
+    adFormRooms.setCustomValidity('Не для гостей');
+  } else {
+    adFormRooms.setCustomValidity('');
+  }
+};
+
+adFormRooms.addEventListener('change', onRoomNumChange);
+adFormGuests.addEventListener('change', onRoomNumChange);
