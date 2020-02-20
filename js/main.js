@@ -251,3 +251,8 @@ var onTimeChange = function (evt) {
 };
 
 adFormTimeGroup.addEventListener('change', onTimeChange);
+
+
+// Количество комнат и гостей
+var adFormRooms = adForm.querySelector('#room_number');
+var adFormGuests = adForm.querySelector('#capacity');
