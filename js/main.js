@@ -27,6 +27,10 @@ var MIN_Y = TOP_BORDER_Y - PIN_HEIGHT;
 var MAX_Y = BOTTOM_BORDER_Y - PIN_HEIGHT;
 var MIN_X = 0 + PIN_WIDTH / 2;
 
+// кнопки
+var LEFT_BTN_CODE = 0;
+var ENTER_KEYCODE = 13;
+
 // необходимые селекторы
 var map = document.querySelector('.map');
 var mapPins = document.querySelector('.map__pins');
@@ -259,7 +263,9 @@ var activatePage = function () {
   renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
   activateForm();
 
-  mapPinMain.removeEventListener('click', onMapPinMainClick);
+  mapPinMain.removeEventListener('mouseup', onMapPinMainClick);
+  mapPinMain.removeEventListener('keydown', onMapPinMainKeydown);
+
   addFormEvtListeners();
 };
 
@@ -274,15 +280,28 @@ var setAdFormAddress = function (coordinates) {
   adFormAddress.value = coordinates.x + ', ' + coordinates.y;
 };
 
-var onMapPinMainClick = function () {
-  activatePage();
+var onMapPinMainClick = function (evt) {
+  if (typeof evt === 'object') {
+    switch (evt.button) {
+      case LEFT_BTN_CODE:
+        activatePage();
+        break;
+    }
+  }
+};
+
+var onMapPinMainKeydown = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    activatePage();
+  }
 };
 
 var resetState = function () {
   deactivateForm();
   setAdFormAddress(getMapPinMainCoordinates());
 
-  mapPinMain.addEventListener('click', onMapPinMainClick);
+  mapPinMain.addEventListener('mouseup', onMapPinMainClick);
+  mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
 
   removeFormEvtListeners();
 };
