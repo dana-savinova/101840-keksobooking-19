@@ -157,60 +157,9 @@ var adFormType = adForm.querySelector('#type');
 var adFormTimeGroup = adForm.querySelector('.ad-form__element--time');
 var adFormTimeIn = adForm.querySelector('#timein');
 var adFormTimeOut = adForm.querySelector('#timeout');
+var adFormRooms = adForm.querySelector('#room_number');
+var adFormGuests = adForm.querySelector('#capacity');
 
-var deactivateFields = function (formFields) {
-  for (var i = 0; i < formFields.length; i++) {
-    formFields[i].setAttribute('disabled', '');
-  }
-};
-
-var activateFields = function (formFields) {
-  for (var i = 0; i < formFields.length; i++) {
-    formFields[i].removeAttribute('disabled');
-  }
-};
-
-var deactivateForm = function () {
-  deactivateFields(adFormFields);
-  deactivateFields(filtersFormFields);
-};
-
-var activateForm = function () {
-  activateFields(adFormFields);
-  activateFields(filtersFormFields);
-};
-
-var activatePage = function () {
-  map.classList.remove('map--faded');
-  adForm.classList.remove('ad-form--disabled');
-  renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
-  activateForm();
-  mapPinMain.removeEventListener('click', onMapPinMainClick);
-};
-
-var getMapPinMainCoordinates = function () {
-  return {
-    x: mapPinMain.offsetLeft,
-    y: mapPinMain.offsetTop
-  };
-};
-
-var setAdFormAddress = function (coordinates) {
-  adFormAddress.value = coordinates.x + ', ' + coordinates.y;
-};
-
-var onMapPinMainClick = function () {
-  activatePage();
-};
-
-var resetState = function () {
-  deactivateForm();
-  setAdFormAddress(getMapPinMainCoordinates());
-
-  mapPinMain.addEventListener('click', onMapPinMainClick);
-};
-
-resetState();
 
 // валидация формы
 // Вспомогательная функция для изменения минимального значение поля цены
@@ -254,10 +203,6 @@ adFormTimeGroup.addEventListener('change', onTimeChange);
 
 
 // Количество комнат и гостей
-var adFormRooms = adForm.querySelector('#room_number');
-var adFormGuests = adForm.querySelector('#capacity');
-
-// Обработчик изменения селекта room
 var onRoomNumChange = function () {
   var guests = parseInt(adFormGuests.value, 10);
   var rooms = parseInt(adFormRooms.value, 10);
@@ -277,3 +222,62 @@ var onRoomNumChange = function () {
 
 adFormRooms.addEventListener('change', onRoomNumChange);
 adFormGuests.addEventListener('change', onRoomNumChange);
+
+
+// взаимодействия со страницей
+
+var deactivateFields = function (formFields) {
+  for (var i = 0; i < formFields.length; i++) {
+    formFields[i].setAttribute('disabled', '');
+  }
+};
+
+var activateFields = function (formFields) {
+  for (var i = 0; i < formFields.length; i++) {
+    formFields[i].removeAttribute('disabled');
+  }
+};
+
+var deactivateForm = function () {
+  deactivateFields(adFormFields);
+  deactivateFields(filtersFormFields);
+};
+
+var activateForm = function () {
+  activateFields(adFormFields);
+  activateFields(filtersFormFields);
+};
+
+var activatePage = function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
+  activateForm();
+
+
+  mapPinMain.removeEventListener('click', onMapPinMainClick);
+};
+
+var getMapPinMainCoordinates = function () {
+  return {
+    x: mapPinMain.offsetLeft,
+    y: mapPinMain.offsetTop
+  };
+};
+
+var setAdFormAddress = function (coordinates) {
+  adFormAddress.value = coordinates.x + ', ' + coordinates.y;
+};
+
+var onMapPinMainClick = function () {
+  activatePage();
+};
+
+var resetState = function () {
+  deactivateForm();
+  setAdFormAddress(getMapPinMainCoordinates());
+
+  mapPinMain.addEventListener('click', onMapPinMainClick);
+};
+
+resetState();
