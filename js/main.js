@@ -144,13 +144,14 @@ var renderSimmiliarOffers = function (offers) {
 // renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
 
 // потом будет вынесено в отдельный модуль, потому переменные тут для простоты копирования))
-var adForm = document.querySelector('.ad-form');
-var adFormFields = adForm.querySelectorAll('fieldset');
+
 var filtersForm = document.querySelector('.map__filters');
 var filtersFormFields = filtersForm.querySelectorAll('fieldset');
 
 var mapPinMain = document.querySelector('.map__pin--main');
 
+var adForm = document.querySelector('.ad-form');
+var adFormFields = adForm.querySelectorAll('fieldset');
 var adFormAddress = adForm.querySelector('#address');
 var adFormPrice = adForm.querySelector('#price');
 var adFormType = adForm.querySelector('#type');
@@ -187,8 +188,6 @@ var onPriceChange = function (evt) {
   }
 };
 
-adFormType.addEventListener('change', onPriceChange);
-
 // Время въезда и выезда
 var onTimeChange = function (evt) {
   var target = evt.target;
@@ -199,20 +198,17 @@ var onTimeChange = function (evt) {
   }
 };
 
-adFormTimeGroup.addEventListener('change', onTimeChange);
-
-
 // Количество комнат и гостей
 var onRoomNumChange = function () {
   var guests = parseInt(adFormGuests.value, 10);
   var rooms = parseInt(adFormRooms.value, 10);
 
   if (rooms === 1 && guests !== 1) {
-    adFormRooms.setCustomValidity('Только для одного человека');
+    adFormRooms.setCustomValidity('Только для одного гостя');
   } else if (rooms === 2 && (guests < 1 || guests > 2)) {
-    adFormRooms.setCustomValidity('Не больше двух человек');
+    adFormRooms.setCustomValidity('Не больше двух гостей');
   } else if (rooms === 3 && (guests < 1 || guests > 3)) {
-    adFormRooms.setCustomValidity('Не больше трех человек');
+    adFormRooms.setCustomValidity('Не больше трех гостей');
   } else if (rooms === 100 && guests !== 0) {
     adFormRooms.setCustomValidity('Не для гостей');
   } else {
@@ -220,12 +216,7 @@ var onRoomNumChange = function () {
   }
 };
 
-adFormRooms.addEventListener('change', onRoomNumChange);
-adFormGuests.addEventListener('change', onRoomNumChange);
-
-
-// взаимодействия со страницей
-
+// Активация формы и карты
 var deactivateFields = function (formFields) {
   for (var i = 0; i < formFields.length; i++) {
     formFields[i].setAttribute('disabled', '');
@@ -248,14 +239,28 @@ var activateForm = function () {
   activateFields(filtersFormFields);
 };
 
+var addFormEvtListeners = function () {
+  adFormType.addEventListener('change', onPriceChange);
+  adFormTimeGroup.addEventListener('change', onTimeChange);
+  adFormRooms.addEventListener('change', onRoomNumChange);
+  adFormGuests.addEventListener('change', onRoomNumChange);
+};
+
+var removeFormEvtListeners = function () {
+  adFormType.addEventListener('change', onPriceChange);
+  adFormTimeGroup.addEventListener('change', onTimeChange);
+  adFormRooms.addEventListener('change', onRoomNumChange);
+  adFormGuests.addEventListener('change', onRoomNumChange);
+};
+
 var activatePage = function () {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
   renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
   activateForm();
 
-
   mapPinMain.removeEventListener('click', onMapPinMainClick);
+  addFormEvtListeners();
 };
 
 var getMapPinMainCoordinates = function () {
@@ -278,6 +283,8 @@ var resetState = function () {
   setAdFormAddress(getMapPinMainCoordinates());
 
   mapPinMain.addEventListener('click', onMapPinMainClick);
+
+  removeFormEvtListeners();
 };
 
 resetState();
