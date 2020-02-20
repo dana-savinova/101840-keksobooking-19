@@ -247,10 +247,10 @@ var addFormEvtListeners = function () {
 };
 
 var removeFormEvtListeners = function () {
-  adFormType.addEventListener('change', onPriceChange);
-  adFormTimeGroup.addEventListener('change', onTimeChange);
-  adFormRooms.addEventListener('change', onRoomNumChange);
-  adFormGuests.addEventListener('change', onRoomNumChange);
+  adFormType.removeEventListener('change', onPriceChange);
+  adFormTimeGroup.removeEventListener('change', onTimeChange);
+  adFormRooms.removeEventListener('change', onRoomNumChange);
+  adFormGuests.removeEventListener('change', onRoomNumChange);
 };
 
 var activatePage = function () {
