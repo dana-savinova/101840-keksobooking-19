@@ -2,6 +2,12 @@
 
 // данные для объявления
 var HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalo'];
+var HOUSE_MIN_PRICES = {
+  'bungalo': 0,
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000
+};
 var HOUSE_ROOMS = [1, 2, 3];
 var NUMBER_GUESTS = [0, 1, 2, 3];
 var HOUSE_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -20,6 +26,10 @@ var BOTTOM_BORDER_Y = 630;
 var MIN_Y = TOP_BORDER_Y - PIN_HEIGHT;
 var MAX_Y = BOTTOM_BORDER_Y - PIN_HEIGHT;
 var MIN_X = 0 + PIN_WIDTH / 2;
+
+// кнопки
+var LEFT_BTN_CODE = 0;
+var ENTER_KEYCODE = 13;
 
 // необходимые селекторы
 var map = document.querySelector('.map');
@@ -124,9 +134,6 @@ var renderOfferItem = function (offer) {
   return offerElement;
 };
 
-// временно переводим карту из неактивного состояния в активное
-map.classList.remove('map--faded');
-
 // вставляем пины
 var renderSimmiliarOffers = function (offers) {
   var fragment = document.createDocumentFragment();
@@ -138,4 +145,165 @@ var renderSimmiliarOffers = function (offers) {
   mapPins.appendChild(fragment);
 };
 
-renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
+// renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
+
+// потом будет вынесено в отдельный модуль, потому переменные тут для простоты копирования))
+
+var filtersForm = document.querySelector('.map__filters');
+var filtersFormFields = filtersForm.querySelectorAll('fieldset');
+
+var mapPinMain = document.querySelector('.map__pin--main');
+
+var adForm = document.querySelector('.ad-form');
+var adFormFields = adForm.querySelectorAll('fieldset');
+var adFormAddress = adForm.querySelector('#address');
+var adFormPrice = adForm.querySelector('#price');
+var adFormType = adForm.querySelector('#type');
+var adFormTimeGroup = adForm.querySelector('.ad-form__element--time');
+var adFormTimeIn = adForm.querySelector('#timein');
+var adFormTimeOut = adForm.querySelector('#timeout');
+var adFormRooms = adForm.querySelector('#room_number');
+var adFormGuests = adForm.querySelector('#capacity');
+
+
+// валидация формы
+// Вспомогательная функция для изменения минимального значение поля цены
+var changeMinPrice = function (value) {
+  adFormPrice.setAttribute('min', value);
+  adFormPrice.setAttribute('placeholder', value);
+};
+
+// Изменяет цену
+var onPriceChange = function (evt) {
+  var value = evt.target.value;
+  switch (value) {
+    case 'bungalo':
+      changeMinPrice(HOUSE_MIN_PRICES.bungalo);
+      break;
+    case 'flat':
+      changeMinPrice(HOUSE_MIN_PRICES.flat);
+      break;
+    case 'house':
+      changeMinPrice(HOUSE_MIN_PRICES.house);
+      break;
+    case 'palace':
+      changeMinPrice(HOUSE_MIN_PRICES.palace);
+      break;
+  }
+};
+
+// Время въезда и выезда
+var onTimeChange = function (evt) {
+  var target = evt.target;
+  if (target === adFormTimeIn) {
+    adFormTimeOut.value = target.value;
+  } else {
+    adFormTimeIn.value = target.value;
+  }
+};
+
+// Количество комнат и гостей
+var onRoomNumChange = function () {
+  var guests = parseInt(adFormGuests.value, 10);
+  var rooms = parseInt(adFormRooms.value, 10);
+
+  if (rooms === 1 && guests !== 1) {
+    adFormRooms.setCustomValidity('Только для одного гостя');
+  } else if (rooms === 2 && (guests < 1 || guests > 2)) {
+    adFormRooms.setCustomValidity('Не больше двух гостей');
+  } else if (rooms === 3 && (guests < 1 || guests > 3)) {
+    adFormRooms.setCustomValidity('Не больше трех гостей');
+  } else if (rooms === 100 && guests !== 0) {
+    adFormRooms.setCustomValidity('Не для гостей');
+  } else {
+    adFormRooms.setCustomValidity('');
+  }
+};
+
+// Активация формы и карты
+var deactivateFields = function (formFields) {
+  for (var i = 0; i < formFields.length; i++) {
+    formFields[i].setAttribute('disabled', '');
+  }
+};
+
+var activateFields = function (formFields) {
+  for (var i = 0; i < formFields.length; i++) {
+    formFields[i].removeAttribute('disabled');
+  }
+};
+
+var deactivateForm = function () {
+  deactivateFields(adFormFields);
+  deactivateFields(filtersFormFields);
+};
+
+var activateForm = function () {
+  activateFields(adFormFields);
+  activateFields(filtersFormFields);
+};
+
+var addFormEvtListeners = function () {
+  adFormType.addEventListener('change', onPriceChange);
+  adFormTimeGroup.addEventListener('change', onTimeChange);
+  adFormRooms.addEventListener('change', onRoomNumChange);
+  adFormGuests.addEventListener('change', onRoomNumChange);
+};
+
+var removeFormEvtListeners = function () {
+  adFormType.removeEventListener('change', onPriceChange);
+  adFormTimeGroup.removeEventListener('change', onTimeChange);
+  adFormRooms.removeEventListener('change', onRoomNumChange);
+  adFormGuests.removeEventListener('change', onRoomNumChange);
+};
+
+var activatePage = function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  renderSimmiliarOffers(createSimmiliarOffer(OFFERS_NUMBER));
+  activateForm();
+
+  mapPinMain.removeEventListener('mouseup', onMapPinMainClick);
+  mapPinMain.removeEventListener('keydown', onMapPinMainKeydown);
+
+  addFormEvtListeners();
+};
+
+var getMapPinMainCoordinates = function () {
+  return {
+    x: mapPinMain.offsetLeft,
+    y: mapPinMain.offsetTop
+  };
+};
+
+var setAdFormAddress = function (coordinates) {
+  adFormAddress.value = coordinates.x + ', ' + coordinates.y;
+};
+
+var onMapPinMainClick = function (evt) {
+  if (typeof evt === 'object') {
+    switch (evt.button) {
+      case LEFT_BTN_CODE:
+        activatePage();
+        break;
+    }
+  }
+};
+
+var onMapPinMainKeydown = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    activatePage();
+  }
+};
+
+var resetState = function () {
+  deactivateForm();
+  setAdFormAddress(getMapPinMainCoordinates());
+
+  mapPinMain.addEventListener('mouseup', onMapPinMainClick);
+  mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
+
+  removeFormEvtListeners();
+};
+
+resetState();
