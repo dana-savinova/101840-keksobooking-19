@@ -59,9 +59,15 @@
     }
   };
 
+  // функция для получения случайной координаты У
+  var getRandomPosition = function (min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
+
   window.util = {
     getRandomElement: getRandomElement, // выбора рандомного элемента массива
-    getRandomIntInclusive: getRandomIntInclusive, // рандомное число из промежутка
+    getRandomIntInclusive: getRandomIntInclusive,
+    getRandomPosition: getRandomPosition, // рандомное число из промежутка
     getShuffleArray: getShuffleArray, // перемешивание массива
     getArrayRandomLength: getArrayRandomLength, // новый массив рандомной длины
     getElementWidth: getElementWidth, // получение размера элемента
