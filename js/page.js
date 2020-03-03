@@ -42,11 +42,4 @@
   };
 
   resetState();
-
-  // window.showAdDetails = function (num) {
-  //   showPopup(getAdDetails(offersArray[num]));
-  // };
-
-  // adPins.addEventListener('click', showAdDetails);
-
 })();

@@ -10,9 +10,19 @@
   var map = document.querySelector('.map');
   var adCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
+  var setAdFieldRequiredValue = function (element, offer) {
+    element.querySelector('.popup__avatar').src = offer.author.avatar;
+    element.querySelector('.popup__title').textContent = offer.offer.title;
+    element.querySelector('.popup__text--address').textContent = offer.offer.address;
+    element.querySelector('.popup__text--price').textContent = offer.offer.price;
+    element.querySelector('.popup__type').textContent = OFFERS_TYPE_TRANSLATION[offer.offer.type];
+    element.querySelector('.popup__text--capacity').textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
+    element.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ' , выезд до ' + offer.offer.checkout;
+  };
+
   var setAdFieldFeaturesValue = function (element, offer) {
     if (offer.offer.features.length === 0) {
-      element.querySelector('.popup__features').hidden = true;
+      element.querySelector('.popup__features').classList.add('hidden');
     } else {
       element.querySelector('.popup__features').innerHTML = '';
 
@@ -24,10 +34,13 @@
     }
   };
 
-  var setAdFieldPhoto = function (element, offer) {
+  var setAdPhoto = function (element, offer) {
     if (offer.offer.features.length === 0) {
       element.querySelector('.popup__photos').classList.add('hidden');
     } else {
+      // ищем блок для фото, чтобы очистить его содержимое
+      element.querySelector('.popup__photos').innerHTML = ''; // тут чистим его содержимое, теперь он пустой
+
       for (var i = 0; i < offer.offer.photos.length; i++) {
         var similarPhotoTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
         var newPhoto = similarPhotoTemplate.cloneNode(true);
@@ -40,22 +53,11 @@
   var renderCard = function (offer) {
     var adCardElement = adCardTemplate.cloneNode(true);
     // вставляем значения в обязательные поля
-    adCardElement.querySelector('.popup__avatar').src = offer.author.avatar;
-    adCardElement.querySelector('.popup__title').textContent = offer.offer.title;
-    adCardElement.querySelector('.popup__text--address').textContent = offer.offer.address;
-    adCardElement.querySelector('.popup__text--price').textContent = offer.offer.price;
-    adCardElement.querySelector('.popup__type').textContent = OFFERS_TYPE_TRANSLATION[offer.offer.type];
-    adCardElement.querySelector('.popup__text--capacity').textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
-    adCardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ' , выезд до ' + offer.offer.checkout;
-
-
+    setAdFieldRequiredValue(adCardElement, offer);
     // доп фишки вроде wi-fi
     setAdFieldFeaturesValue(adCardElement, offer);
-
     // разбираемся с фотографиями
-    var photos = adCardElement.querySelector('.popup__photos'); // ищем блок для фото, чтобы очистить его содержимое
-    photos.innerHTML = ''; // тут чистим его содержимое, теперь он пустой
-    setAdFieldPhoto(adCardElement, offer);
+    setAdPhoto(adCardElement, offer);
 
     return adCardElement;
   };
