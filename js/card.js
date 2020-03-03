@@ -11,12 +11,17 @@
   var adCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   var setAdFieldRequiredValue = function (element, offer) {
-    element.querySelector('.popup__avatar').src = offer.author.avatar;
+    // Выведите заголовок объявления offer.title в заголовок .popup__title
     element.querySelector('.popup__title').textContent = offer.offer.title;
+    // Выведите адрес offer.address в блок .popup__text--address
     element.querySelector('.popup__text--address').textContent = offer.offer.address;
+    // Выведите цену offer.price в блок .popup__text--price строкой вида {{offer.price}}₽/ночь. Например, 5200₽/ночь
     element.querySelector('.popup__text--price').textContent = offer.offer.price;
+    // В блок .popup__type выведите тип жилья offer.type: Квартира для flat, Бунгало для bungalo, Дом для house, Дворец для palace.
     element.querySelector('.popup__type').textContent = OFFERS_TYPE_TRANSLATION[offer.offer.type];
+    // Выведите количество гостей и комнат offer.rooms и offer.guests в блок .popup__text--capacity строкой вида {{offer.rooms}} комнаты для {{offer.guests}} гостей. Например, 2 комнаты для 3 гостей.
     element.querySelector('.popup__text--capacity').textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
+    // Время заезда и выезда offer.checkin и offer.checkout в блок .popup__text--time строкой вида Заезд после {{offer.checkin}}, выезд до {{offer.checkout}}. Например, заезд после 14:00, выезд до 12:00
     element.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ' , выезд до ' + offer.offer.checkout;
   };
 
@@ -31,6 +36,14 @@
         newElement.className = 'popup__feature popup__feature--' + offer.offer.features[i];
         element.querySelector('.popup__features').appendChild(newElement);
       }
+    }
+  };
+
+  var setAdFieldDescValue = function (element, offer) {
+    if (offer.offer.description === 0) {
+      element.querySelector('.popup__description').classList.add('hidden');
+    } else {
+      element.querySelector('.popup__description').textContent = offer.offer.description;
     }
   };
 
@@ -50,14 +63,26 @@
     }
   };
 
+  var checkAvatar = function (element, offer) {
+    if (offer.author.avatar) {
+      element.querySelector('.popup__avatar').src = offer.author.avatar;
+    } else {
+      element.querySelector('.popup__avatar').classList.add('hidden');
+    }
+  };
+
   var renderCard = function (offer) {
     var adCardElement = adCardTemplate.cloneNode(true);
     // вставляем значения в обязательные поля
     setAdFieldRequiredValue(adCardElement, offer);
-    // доп фишки вроде wi-fi
+    // В список .popup__features выведите все доступные удобства в объявлении.
     setAdFieldFeaturesValue(adCardElement, offer);
-    // разбираемся с фотографиями
+    // В блок .popup__description выведите описание объекта недвижимости offer.description.
+    setAdFieldDescValue(adCardElement, offer);
+    // В блок .popup__photos выведите все фотографии из списка offer.photos. Каждая из строк массива photos должна записываться как src соответствующего изображения.
     setAdPhoto(adCardElement, offer);
+    // Замените src у аватарки пользователя — изображения, которое записано в .popup__avatar — на значения поля author.avatar отрисовываемого объекта.
+    checkAvatar(adCardElement, offer);
 
     return adCardElement;
   };

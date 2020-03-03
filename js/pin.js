@@ -28,6 +28,8 @@
     mapPins.appendChild(fragment);
   };
 
+
+  // слушаем нажатие на пины с объявлениями
   var adPinsAllClickListener = function (arr) {
     var allAdPins = mapPins.querySelectorAll('.map__pin'); // массив всех меток, включая главную
 
