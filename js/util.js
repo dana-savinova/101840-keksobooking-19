@@ -4,6 +4,7 @@
   // кнопки
   var LEFT_BTN_CODE = 0;
   var ENTER_KEYCODE = 13;
+  var ESC_KEYCODE = 27;
 
   // функция для выбора рандомного элемента массива
   var getRandomElement = function (arr) {
@@ -48,6 +49,12 @@
     }
   };
 
+  var isEscEvent = function (evt, action) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      action();
+    }
+  };
+
   // функция для нажатия на левую кнопку мыши
   var isLeftBtnEvent = function (evt, action) {
     if (typeof evt === 'object') {
@@ -72,6 +79,7 @@
     getArrayRandomLength: getArrayRandomLength, // новый массив рандомной длины
     getElementWidth: getElementWidth, // получение размера элемента
     isEnterEvent: isEnterEvent, // нажатие на enter
-    isLeftBtnEvent: isLeftBtnEvent // нажатие на левую кнопку мыши
+    isLeftBtnEvent: isLeftBtnEvent, // нажатие на левую кнопку мыши
+    actionIfEscEvent: isEscEvent // нажатие на ESC
   };
 })();
