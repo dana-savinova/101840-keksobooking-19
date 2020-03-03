@@ -9,11 +9,11 @@
   var adForm = document.querySelector('.ad-form');
 
   var onMapPinMainClick = function (evt) {
-    window.util.isLeftBtnEvent(evt, activatePage);
+    window.util.actionIfLeftBtnEvent(evt, activatePage);
   };
 
   var onMapPinMainKeydown = function (evt) {
-    window.util.isEnterEvent(evt, activatePage);
+    window.util.actionIfEnterEvent(evt, activatePage);
   };
 
   var offersArray = window.createSimmiliarOffer(OFFERS_NUMBER);

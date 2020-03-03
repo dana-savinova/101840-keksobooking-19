@@ -43,20 +43,20 @@
   };
 
   // функция для нажатия на enter
-  var isEnterEvent = function (evt, action) {
+  var actionIfEnterEvent = function (evt, action) {
     if (evt.keyCode === ENTER_KEYCODE) {
       action();
     }
   };
 
-  var isEscEvent = function (evt, action) {
+  var actionIfEscEvent = function (evt, action) {
     if (evt.keyCode === ESC_KEYCODE) {
       action();
     }
   };
 
   // функция для нажатия на левую кнопку мыши
-  var isLeftBtnEvent = function (evt, action) {
+  var actionIfLeftBtnEvent = function (evt, action) {
     if (typeof evt === 'object') {
       switch (evt.button) {
         case LEFT_BTN_CODE:
@@ -78,8 +78,8 @@
     getShuffleArray: getShuffleArray, // перемешивание массива
     getArrayRandomLength: getArrayRandomLength, // новый массив рандомной длины
     getElementWidth: getElementWidth, // получение размера элемента
-    isEnterEvent: isEnterEvent, // нажатие на enter
-    isLeftBtnEvent: isLeftBtnEvent, // нажатие на левую кнопку мыши
-    actionIfEscEvent: isEscEvent // нажатие на ESC
+    actionIfEnterEvent: actionIfEnterEvent, // нажатие на enter
+    actionIfLeftBtnEvent: actionIfLeftBtnEvent, // нажатие на левую кнопку мыши
+    actionIfEscEvent: actionIfEscEvent // нажатие на ESC
   };
 })();
