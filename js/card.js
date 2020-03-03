@@ -111,9 +111,12 @@
 
   var removeCard = function () {
     var cardPopup = map.querySelector('.popup');
+    var currentPin = map.querySelector('.map__pin--active');
     cardPopup.querySelector('.popup__close').removeEventListener('click', removeCard);
     document.removeEventListener('keydown', onMapKeydown);
+
     cardPopup.remove();
+    currentPin.classList.remove('map__pin--active');
   };
 
   window.card = {
