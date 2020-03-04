@@ -3,7 +3,7 @@
   var OFFERS_NUMBER = 5;
   // перемещение маркера
   var MAIN_PIN_WIDTH = 65;
-  var MAIN_PIN_HEIGHT = 65;
+  // var MAIN_PIN_HEIGHT = 65;
 
   var mapPinMain = document.querySelector('.map__pin--main');
   var mapPins = document.querySelector('.map__pins');
@@ -32,10 +32,11 @@
     evt.preventDefault();
 
     // диапазон, в котором метка может перемещаться
+
     var moveRange = {
       top: 130,
       right: mapPinsWidth - MAIN_PIN_WIDTH,
-      bottom: 690 - MAIN_PIN_HEIGHT,
+      bottom: 630, // Для удобства пользователей значение Y-координаты адреса должно быть ограничено интервалом от 130 до 630.
       left: 0
     };
 
