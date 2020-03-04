@@ -6,7 +6,7 @@
   var HOUSE_ROOMS = [1, 2, 3];
   var NUMBER_GUESTS = [0, 1, 2, 3];
   var HOUSE_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var OFFER_DESCRIPTIONS = ['Уютный домик', 'Просторное жилище', 'Фото места'];
+  var OFFER_DESCRIPTIONS = ['Уютный домик', 'Просторное жилище', 'Фото места', 0];
   var OFFER_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
   var OFFER_TIMES = ['12:00', '13:00', '14:00'];
 

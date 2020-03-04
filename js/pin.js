@@ -28,5 +28,29 @@
     mapPins.appendChild(fragment);
   };
 
-  window.renderSimmiliarOffers = renderSimmiliarOffers;
+
+  // слушаем нажатие на пины с объявлениями
+  var adPinsAllClickListener = function (arr) {
+    var allAdPins = mapPins.querySelectorAll('.map__pin'); // массив всех меток, включая главную
+
+    var addPinClickListener = function (pin, i) {
+      var onPinClickCard = function () {
+        var numberOffer = i - 1;
+        window.card.show(arr[numberOffer]);
+        pin.classList.add('map__pin--active');
+      };
+      pin.addEventListener('click', onPinClickCard);
+    };
+
+    // теперь слушаем клик на _каждом_ пине, кроме первой
+    for (var i = 1; i < allAdPins.length; i++) {
+      var pinArray = allAdPins[i];
+      addPinClickListener(pinArray, i);
+    }
+  };
+
+  window.pin = {
+    renderSimmiliarOffers: renderSimmiliarOffers,
+    addListeners: adPinsAllClickListener
+  };
 })();
