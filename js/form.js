@@ -8,8 +8,6 @@
     'palace': 10000
   };
 
-  var mapPinMain = document.querySelector('.map__pin--main');
-
   var filtersForm = document.querySelector('.map__filters');
   var filtersFormFields = filtersForm.querySelectorAll('fieldset');
 
@@ -100,6 +98,16 @@
     activateFields(filtersFormFields);
   };
 
+  var onFormSubmit = function () {
+    window.message.success();
+    window.page.deactivate();
+  };
+
+  addForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.server.upload(new FormData(addForm), onFormSubmit, window.message.error);
+  });
+
   var addFormEvtListeners = function () {
     addFormType.addEventListener('change', onPriceChange);
     addFormTimeGroup.addEventListener('change', onTimeChange);
@@ -114,13 +122,6 @@
     addFormGuests.removeEventListener('change', onRoomNumChange);
   };
 
-  var getMapPinMainCoordinates = function () {
-    return {
-      x: mapPinMain.offsetLeft,
-      y: mapPinMain.offsetTop
-    };
-  };
-
   var setAddFormAddress = function (coordinates) {
     addFormAddress.value = coordinates.x + ', ' + coordinates.y;
   };
@@ -130,6 +131,6 @@
     activate: activateForm,
     addEvtListeners: addFormEvtListeners,
     removeEvtListeners: removeFormEvtListeners,
-    setAddress: setAddFormAddress(getMapPinMainCoordinates())
+    setAddress: setAddFormAddress
   };
 })();
