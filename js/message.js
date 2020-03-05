@@ -1,12 +1,6 @@
 'use strict';
 (function () {
 
-  // var removeMessageElement = function (element) {
-  //   element.remove();
-  //
-  //   document.removeEventListener('click', removeMessageElement);
-  //   document.removeEventListener('keydown', onDocumentKeydown);
-  // };
   var createErrorMessage = function (errorMessage) {
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorElement = errorTemplate.cloneNode(true);

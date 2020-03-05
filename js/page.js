@@ -6,7 +6,11 @@
   var adForm = document.querySelector('.ad-form');
 
   var activatePage = function () {
-    window.isPageActive = true;
+    if (!window.isPageActive) {
+      window.server.download(window.data.onSuccess, window.message.error);
+      window.isPageActive = true;
+    }
+
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
     window.form.activate();
@@ -16,15 +20,13 @@
 
   var resetState = function () {
     window.isPageActive = false;
-    window.data = null;
+    // window.data = null;
     window.form.deactivate();
     window.form.removeEvtListeners();
 
     map.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
   };
-
-  resetState();
 
   window.page = {
     activate: activatePage,

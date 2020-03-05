@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var OFFERS_NUMBER = 5;
+  var OFFERS_NUMBER = 8;
 
   var mapPins = document.querySelector('.map__pins');
 
@@ -30,8 +30,6 @@
   };
 
   window.data = {
-    onSuccess: onSuccessData,
-    render: renderSimmiliarOffers,
-    array: getOffersData
+    onSuccess: onSuccessData
   };
 })();

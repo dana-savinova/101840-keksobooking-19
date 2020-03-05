@@ -17,25 +17,15 @@
     return offerElement;
   };
 
-  // вставляем пины - в функцию "скармливаем" массив с объявлениями
-  // var renderSimmiliarOffers = function (offers) {
-  //   var fragment = document.createDocumentFragment();
-  //
-  //   for (var i = 0; i < offers.length; i++) {
-  //     fragment.appendChild(renderOfferItem(offers[i]));
-  //   }
-  //
-  //   mapPins.appendChild(fragment);
-  // };
-
 
   // слушаем нажатие на пины с объявлениями
   var adPinsAllClickListener = function (arr) {
-    var allAdPins = mapPins.querySelectorAll('.map__pin'); // массив всех меток, включая главную
+    var allAdPins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main'); // массив всех меток, исключая главную
 
     var addPinClickListener = function (pin, i) {
       var onPinClickCard = function () {
-        var numberOffer = i - 1;
+        var numberOffer = i;
+
         window.card.show(arr[numberOffer]);
         pin.classList.add('map__pin--active');
       };
@@ -43,15 +33,14 @@
     };
 
     // теперь слушаем клик на _каждом_ пине, кроме первой
-    for (var i = 1; i < allAdPins.length; i++) {
-      var pinArray = allAdPins[i];
-      addPinClickListener(pinArray, i);
+    for (var j = 0; j < allAdPins.length; j++) {
+      var pinArray = allAdPins[j];
+      addPinClickListener(pinArray, j);
     }
   };
 
   window.pin = {
     create: renderOfferItem,
-    // renderSimmiliarOffers: renderSimmiliarOffers,
     addListeners: adPinsAllClickListener
   };
 })();
