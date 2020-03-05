@@ -18,15 +18,15 @@
   };
 
   // вставляем пины - в функцию "скармливаем" массив с объявлениями
-  // var renderSimmiliarOffers = function (offers) {
-  //   var fragment = document.createDocumentFragment();
-  //
-  //   for (var i = 0; i < offers.length; i++) {
-  //     fragment.appendChild(renderOfferItem(offers[i]));
-  //   }
-  //
-  //   mapPins.appendChild(fragment);
-  // };
+  var renderSimmiliarOffers = function (offers) {
+    var fragment = document.createDocumentFragment();
+
+    for (var i = 0; i < offers.length; i++) {
+      fragment.appendChild(renderOfferItem(offers[i]));
+    }
+
+    mapPins.appendChild(fragment);
+  };
 
 
   // слушаем нажатие на пины с объявлениями
@@ -50,8 +50,7 @@
   };
 
   window.pin = {
-    create: renderOfferItem,
-    // renderSimmiliarOffers: renderSimmiliarOffers,
+    renderSimmiliarOffers: renderSimmiliarOffers,
     addListeners: adPinsAllClickListener
   };
 })();

@@ -49,16 +49,17 @@
 
   var setAdPhoto = function (element, offer) {
     if (offer.offer.features.length === 0) {
-      element.querySelector('.popup__photos').classList.add('hidden');
+      element.querySelector('.popup__photos').style.cssText = 'display: none';
     } else {
       // ищем блок для фото, чтобы очистить его содержимое
       element.querySelector('.popup__photos').innerHTML = ''; // тут чистим его содержимое, теперь он пустой
+      var block = element.querySelector('.popup__photos');
 
       for (var i = 0; i < offer.offer.photos.length; i++) {
         var similarPhotoTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
         var newPhoto = similarPhotoTemplate.cloneNode(true);
         newPhoto.src = offer.offer.photos[i];
-        element.appendChild(newPhoto);
+        block.appendChild(newPhoto);
       }
     }
   };

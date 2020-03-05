@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var OFFERS_NUMBER = 5;
+  // var OFFERS_NUMBER = 5;
   // перемещение маркера
   var MAIN_PIN_WIDTH = 65;
   var HALF_MAIN_PIN_WIDTH = Math.round(MAIN_PIN_WIDTH / 2);
@@ -10,13 +10,14 @@
   var mapPins = document.querySelector('.map__pins');
   var mapPinsWidth = window.util.getElementWidth(mapPins);
 
-  var offersArray = window.createSimmiliarOffer(OFFERS_NUMBER);
-  window.dataArray = offersArray;
+  // var offersArray = window.createSimmiliarOffer(OFFERS_NUMBER);
+  // window.dataArray = offersArray;
 
 
   var activatePage = function () {
     window.page.activate();
-    window.pin.renderSimmiliarOffers(offersArray);
+    // window.pin.renderSimmiliarOffers(offersArray);
+    window.server.download(window.data.onSuccess, window.message.error);
   };
 
 
