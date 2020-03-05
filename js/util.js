@@ -71,6 +71,14 @@
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
 
+  // функция для получения координат метки
+  var getMapPinCoordinates = function (pin) {
+    return {
+      x: pin.offsetLeft,
+      y: pin.offsetTop
+    };
+  };
+
   window.util = {
     getRandomElement: getRandomElement, // выбора рандомного элемента массива
     getRandomIntInclusive: getRandomIntInclusive,
@@ -80,6 +88,7 @@
     getElementWidth: getElementWidth, // получение размера элемента
     actionIfEnterEvent: actionIfEnterEvent, // нажатие на enter
     actionIfLeftBtnEvent: actionIfLeftBtnEvent, // нажатие на левую кнопку мыши
-    actionIfEscEvent: actionIfEscEvent // нажатие на ESC
+    actionIfEscEvent: actionIfEscEvent, // нажатие на ESC
+    getMapPinCoordinates: getMapPinCoordinates // функция для получения координат метки
   };
 })();
