@@ -122,8 +122,8 @@
     addFormGuests.removeEventListener('change', onRoomNumChange);
   };
 
-  var setAddFormAddress = function (coordinates) {
-    addFormAddress.value = coordinates.x + ', ' + coordinates.y;
+  var setAddFormAddress = function (coordinates, halfPinWidth) {
+    addFormAddress.value = (coordinates.x + halfPinWidth) + ', ' + coordinates.y;
   };
 
   window.form = {

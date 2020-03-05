@@ -3,7 +3,8 @@
   var OFFERS_NUMBER = 5;
   // перемещение маркера
   var MAIN_PIN_WIDTH = 65;
-  // var MAIN_PIN_HEIGHT = 65;
+  var HALF_MAIN_PIN_WIDTH = Math.round(MAIN_PIN_WIDTH / 2);
+
 
   var mapPinMain = document.querySelector('.map__pin--main');
   var mapPins = document.querySelector('.map__pins');
@@ -17,6 +18,7 @@
     window.page.activate();
     window.pin.renderSimmiliarOffers(offersArray);
   };
+
 
   // обработчики событий
   var onMapPinMainClick = function (evt) {
@@ -35,9 +37,9 @@
 
     var moveRange = {
       top: 130,
-      right: mapPinsWidth - MAIN_PIN_WIDTH,
+      right: mapPinsWidth - HALF_MAIN_PIN_WIDTH,
       bottom: 630, // Для удобства пользователей значение Y-координаты адреса должно быть ограничено интервалом от 130 до 630.
-      left: 0
+      left: 0 - HALF_MAIN_PIN_WIDTH
     };
 
     // записываем начальные координаты
@@ -62,6 +64,11 @@
       };
 
       // вычисляем новые координаты для метки
+      // var newMainPinCoords = {
+      //   x: mapPinMain.offsetLeft - shift.x,
+      //   y: mapPinMain.offsetTop - shift.y
+      // };
+
       var shiftX = mapPinMain.offsetLeft - shift.x;
       var shiftY = mapPinMain.offsetTop - shift.y;
 
@@ -86,7 +93,7 @@
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      window.form.setAddress(window.util.getMapPinCoordinates(mapPinMain));
+      window.form.setAddress(window.util.getMapPinCoordinates(mapPinMain), HALF_MAIN_PIN_WIDTH);
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
