@@ -14,6 +14,7 @@
   var DataExchangeFormat = {
     JSON: 'json'
   };
+
   var TIMEOUT = 10000; // 10 cекунд
 
   var dataDownload = function (onSuccess, onError) {
