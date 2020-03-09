@@ -98,15 +98,15 @@
     activateFields(filtersFormFields);
   };
 
-  var onFormSubmit = function () {
-    window.message.success();
-    window.page.deactivate();
-  };
-
-  addForm.addEventListener('submit', function (evt) {
-    evt.preventDefault();
-    window.server.upload(new FormData(addForm), onFormSubmit, window.message.error);
-  });
+  // var onFormSubmit = function () {
+  //   window.message.success();
+  //   window.page.deactivate();
+  // };
+  //
+  // addForm.addEventListener('submit', function (evt) {
+  //   evt.preventDefault();
+  //   window.server.upload(new FormData(addForm), onFormSubmit, window.message.error);
+  // });
 
   var addFormEvtListeners = function () {
     addFormType.addEventListener('change', onPriceChange);

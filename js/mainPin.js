@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var OFFERS_NUMBER = 5;
+  // var OFFERS_NUMBER = 5;
   // перемещение маркера
   var MAIN_PIN_WIDTH = 65;
   var HALF_MAIN_PIN_WIDTH = Math.round(MAIN_PIN_WIDTH / 2);
@@ -10,29 +10,19 @@
   var mapPins = document.querySelector('.map__pins');
   var mapPinsWidth = window.util.getElementWidth(mapPins);
 
-  var offersArray = window.createSimmiliarOffer(OFFERS_NUMBER);
-  window.dataArray = offersArray;
-
-
-  var activatePage = function () {
-    window.page.activate();
-    window.pin.renderSimmiliarOffers(offersArray);
-  };
-
 
   // обработчики событий
   var onMapPinMainClick = function (evt) {
-    window.util.actionIfLeftBtnEvent(evt, activatePage);
+    window.util.actionIfLeftBtnEvent(evt, window.page.activate);
   };
 
   var onMapPinMainKeydown = function (evt) {
-    window.util.actionIfEnterEvent(evt, activatePage);
+    window.util.actionIfEnterEvent(evt, window.page.activate);
   };
 
 
   var onMainPinMove = function (evt) {
     evt.preventDefault();
-
     // диапазон, в котором метка может перемещаться
 
     var moveRange = {
@@ -64,10 +54,6 @@
       };
 
       // вычисляем новые координаты для метки
-      // var newMainPinCoords = {
-      //   x: mapPinMain.offsetLeft - shift.x,
-      //   y: mapPinMain.offsetTop - shift.y
-      // };
 
       var shiftX = mapPinMain.offsetLeft - shift.x;
       var shiftY = mapPinMain.offsetTop - shift.y;
