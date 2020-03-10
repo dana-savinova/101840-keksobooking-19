@@ -20,7 +20,7 @@
 
   var resetState = function () {
     window.isPageActive = false;
-    // window.data = null;
+    window.dataFiltered = null;
     window.form.deactivate();
     window.form.removeEvtListeners();
 
