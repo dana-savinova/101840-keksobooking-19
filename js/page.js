@@ -21,6 +21,9 @@
   var resetState = function () {
     window.isPageActive = false;
     window.dataFiltered = null;
+    window.card.remove();
+    window.pin.delete();
+    window.mainPin.reset();
     window.form.deactivate();
     window.form.removeEvtListeners();
 
