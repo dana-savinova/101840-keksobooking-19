@@ -98,16 +98,6 @@
     activateFields(filtersFormFields);
   };
 
-  // var onFormSubmit = function () {
-  //   window.message.success();
-  //   window.page.deactivate();
-  // };
-  //
-  // addForm.addEventListener('submit', function (evt) {
-  //   evt.preventDefault();
-  //   window.server.upload(new FormData(addForm), onFormSubmit, window.message.error);
-  // });
-
   var addFormEvtListeners = function () {
     addFormType.addEventListener('change', onPriceChange);
     addFormTimeGroup.addEventListener('change', onTimeChange);
@@ -125,6 +115,16 @@
   var setAddFormAddress = function (coordinates, halfPinWidth) {
     addFormAddress.value = (coordinates.x + halfPinWidth) + ', ' + coordinates.y;
   };
+
+  var onFormSubmit = function () {
+    window.page.deactivate();
+    window.message.success();
+  };
+
+  addForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.server.upload(new FormData(addForm), onFormSubmit, window.message.error);
+  });
 
   window.form = {
     deactivate: deactivateForm,
