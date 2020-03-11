@@ -22,6 +22,8 @@
   var addFormRooms = addForm.querySelector('#room_number');
   var addFormGuests = addForm.querySelector('#capacity');
 
+  var addFormResetBtn = addForm.querySelector('.ad-form__reset');
+
   // валидация формы
   // Вспомогательная функция для изменения минимального значение поля цены
   var changeMinPrice = function (value) {
@@ -98,21 +100,29 @@
     activateFields(filtersFormFields);
   };
 
-  // var onFormSubmit = function () {
-  //   window.message.success();
-  //   window.page.deactivate();
-  // };
-  //
-  // addForm.addEventListener('submit', function (evt) {
-  //   evt.preventDefault();
-  //   window.server.upload(new FormData(addForm), onFormSubmit, window.message.error);
-  // });
+  var onFormSubmit = function () {
+    window.page.deactivate();
+    window.message.success();
+  };
+
+  var onSubmitBtnClick = function (evt) {
+    evt.preventDefault();
+    window.server.upload(new FormData(addForm), onFormSubmit, window.message.error);
+  };
+
+  var onResetBtnClick = function (evt) {
+    evt.preventDefault();
+    addForm.reset();
+    window.page.deactivate();
+  };
 
   var addFormEvtListeners = function () {
     addFormType.addEventListener('change', onPriceChange);
     addFormTimeGroup.addEventListener('change', onTimeChange);
     addFormRooms.addEventListener('change', onRoomNumChange);
     addFormGuests.addEventListener('change', onRoomNumChange);
+    addForm.addEventListener('submit', onSubmitBtnClick);
+    addFormResetBtn.addEventListener('click', onResetBtnClick);
   };
 
   var removeFormEvtListeners = function () {
@@ -120,6 +130,8 @@
     addFormTimeGroup.removeEventListener('change', onTimeChange);
     addFormRooms.removeEventListener('change', onRoomNumChange);
     addFormGuests.removeEventListener('change', onRoomNumChange);
+    addForm.removeEventListener('submit', onSubmitBtnClick);
+    addFormResetBtn.removeEventListener('click', onResetBtnClick);
   };
 
   var setAddFormAddress = function (coordinates, halfPinWidth) {

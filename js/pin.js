@@ -1,11 +1,11 @@
 'use strict';
 
 (function () {
-  // генерируем элемент с предложением
   var mapPins = document.querySelector('.map__pins');
-  var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
+  // отрисовка пина с аватаркой на карте
   var renderOfferItem = function (offer) {
+    var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
     var offerElement = mapPinTemplate.cloneNode(true);
     var img = offerElement.querySelector('img');
 
@@ -16,7 +16,6 @@
 
     return offerElement;
   };
-
 
   // слушаем нажатие на пины с объявлениями
   var adPinsAllClickListener = function (arr) {
@@ -39,8 +38,17 @@
     }
   };
 
+  // удаление пинов
+  var removePins = function () {
+    var allAdPins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main');
+    for (var pinIndex = 0; pinIndex < allAdPins.length; pinIndex++) {
+      allAdPins[pinIndex].remove();
+    }
+  };
+
   window.pin = {
     create: renderOfferItem,
+    delete: removePins,
     addListeners: adPinsAllClickListener
   };
 })();
