@@ -112,6 +112,7 @@
 
   var onResetBtnClick = function (evt) {
     evt.preventDefault();
+    addForm.reset();
     window.page.deactivate();
   };
 
