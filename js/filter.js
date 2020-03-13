@@ -31,7 +31,7 @@
     return option;
   };
 
-  // ФИЛЬТРАЦИЯ ПО ТИПУ ЖИЛЬЯ
+  // фильтрация по типу жилья
   var filterByType = function (offer) {
     if (getSelectOptionValue(filterHouseType).value === FilterValue.ANY) {
       return true;
@@ -39,7 +39,7 @@
       return offer.offer.type === getSelectOptionValue(filterHouseType).value;
     }
   };
-  // ФИЛЬТРАЦИЯ ПО ЦЕНЕ
+
   // вспомогательная функция, которая помогает сопоставить зачения цены с значениями в фильтре
   var checkOfferPrice = function (offer) {
     var price = parseInt(offer.offer.price, 10);
@@ -54,6 +54,7 @@
     }
   };
 
+  // фильтрация по цене
   var filterByPrice = function (offer) {
     if (getSelectOptionValue(filterPrice).value === FilterValue.ANY) {
       return true;
@@ -62,7 +63,7 @@
     }
   };
 
-  // ФИЛЬТРАЦИЯ ПО КОЛИЧЕСТВУ КОМНАТ
+  // фильтрация по количеству комнат
   var filterByRoomNum = function (offer) {
     if (getSelectOptionValue(filterRoomsNum).value === FilterValue.ANY) {
       return true;
@@ -71,7 +72,7 @@
     }
   };
 
-  // ФИЛЬТРАЦИЯ ПО ЧИСЛУ ГОСТЕЙ
+  // фильтрация по количеству гостей
   var filterByGuestsNum = function (offer) {
     if (getSelectOptionValue(filterGuestsNum).value === FilterValue.ANY) {
       return true;
@@ -80,7 +81,7 @@
     }
   };
 
-  // ДОПОЛНИТЕЛЬНЫЕ УДОБСТВА
+  // фильтрация по доп удобствам
   var filterByFeature = function (feature) {
     return function (offer) {
       var element = filterForm.querySelector('#filter-' + feature);

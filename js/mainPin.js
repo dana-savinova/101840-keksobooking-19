@@ -10,19 +10,19 @@
   var mapPinsWidth = window.util.getElementWidth(mapPins);
 
   // Действия с главной меткой для деактивации
-  // 1. запоминаем координаты
+  // запоминаем координаты
   var mainPinInitialPosition = {
     x: mapPinMain.offsetLeft,
     y: mapPinMain.offsetTop,
   };
 
-  // 2. функция, которая подставляет изначальные координаты
+  // функция, которая подставляет изначальные координаты
   var resetMainPin = function () {
     mapPinMain.style.left = mainPinInitialPosition.x + 'px';
     mapPinMain.style.top = mainPinInitialPosition.y + 'px';
   };
 
-  // Обработчики событий
+  // обработчики событий
   var onMapPinMainClick = function (evt) {
     window.util.actionIfLeftBtnEvent(evt, window.page.activate);
   };
@@ -33,8 +33,8 @@
 
   var onMainPinMove = function (evt) {
     evt.preventDefault();
-    // диапазон, в котором метка может перемещаться
 
+    // диапазон, в котором метка может перемещаться
     var moveRange = {
       top: 130,
       right: mapPinsWidth - HALF_MAIN_PIN_WIDTH,
@@ -64,7 +64,6 @@
       };
 
       // вычисляем новые координаты для метки
-
       var shiftX = mapPinMain.offsetLeft - shift.x;
       var shiftY = mapPinMain.offsetTop - shift.y;
 

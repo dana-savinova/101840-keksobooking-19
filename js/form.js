@@ -138,6 +138,8 @@
     addFormAddress.value = (coordinates.x + halfPinWidth) + ', ' + coordinates.y;
   };
 
+  deactivateForm();
+
   window.form = {
     deactivate: deactivateForm,
     activate: activateForm,

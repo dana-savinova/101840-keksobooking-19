@@ -40,7 +40,7 @@
     document.body.insertAdjacentElement('afterbegin', successElement);
 
     var onDocumentKeydown = function (evt) {
-      window.util.isEscEvent(evt, function () {
+      window.util.actionIfEscEvent(evt, function () {
         removeSuccessMessage();
       });
     };
