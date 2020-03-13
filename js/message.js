@@ -47,6 +47,7 @@
 
     var removeSuccessMessage = function () {
       successElement.remove();
+      window.form.reset();
       document.removeEventListener('click', removeSuccessMessage);
       document.removeEventListener('keydown', onDocumentKeydown);
     };

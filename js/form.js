@@ -100,6 +100,10 @@
     activateFields(filtersFormFields);
   };
 
+  var resetForm = function () {
+    addForm.reset();
+  };
+
   var onFormSubmit = function () {
     window.page.deactivate();
     window.message.success();
@@ -112,7 +116,7 @@
 
   var onResetBtnClick = function (evt) {
     evt.preventDefault();
-    addForm.reset();
+    resetForm();
     window.page.deactivate();
   };
 
@@ -142,6 +146,7 @@
 
   window.form = {
     deactivate: deactivateForm,
+    reset: resetForm,
     activate: activateForm,
     addEvtListeners: addFormEvtListeners,
     removeEvtListeners: removeFormEvtListeners,
