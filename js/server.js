@@ -4,7 +4,7 @@
     GET: 'https://js.dump.academy/keksobooking/data',
     POST: 'https://js.dump.academy/keksobooking'
   };
-  var responseToCode = {
+  var ResponseCode = {
     SUCCESS: 200,
     BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
@@ -40,19 +40,19 @@
     xhr.addEventListener('load', function () {
       var errorMessage;
       switch (xhr.status) {
-        case responseToCode.SUCCESS:
+        case ResponseCode.SUCCESS:
           action(xhr.response);
           break;
-        case responseToCode.BAD_REQUEST:
+        case ResponseCode.BAD_REQUEST:
           errorMessage = 'Неверный запрос на сервер. Пожалуйста, проверьте данные и повторите попытку снова';
           break;
-        case responseToCode.UNAUTHORIZED:
+        case ResponseCode.UNAUTHORIZED:
           errorMessage = 'Вы не авторизованы. Пожалуйста, войдите в свой профиль и повторите попытку снова';
           break;
-        case responseToCode.NOT_FOUND:
+        case ResponseCode.NOT_FOUND:
           errorMessage = 'Запрашиваемый ресурс не найден';
           break;
-        case responseToCode.SERVICE_UNAVAILABLE:
+        case ResponseCode.SERVICE_UNAVAILABLE:
           errorMessage = 'Сервис временно недоступен. Пожалуйста, зайдите позже';
           break;
 
