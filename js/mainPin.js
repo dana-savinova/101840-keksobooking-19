@@ -11,10 +11,7 @@
 
   // Действия с главной меткой для деактивации
   // запоминаем координаты
-  var mainPinInitialPosition = {
-    x: mapPinMain.offsetLeft,
-    y: mapPinMain.offsetTop,
-  };
+  var mainPinInitialPosition = window.util.getMapPinCoordinates(mapPinMain);
 
   // функция, которая подставляет изначальные координаты
   var resetMainPin = function () {
@@ -104,6 +101,7 @@
   mapPinMain.addEventListener('mousedown', onMainPinMove);
 
   window.mainPin = {
+    element: mapPinMain,
     reset: resetMainPin
   };
 })();

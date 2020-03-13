@@ -102,6 +102,7 @@
 
   var resetForm = function () {
     addForm.reset();
+    window.form.setAddress(window.util.getMapPinCoordinates(window.mainPin.element));
   };
 
   var onFormSubmit = function () {
