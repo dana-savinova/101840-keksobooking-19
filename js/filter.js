@@ -80,13 +80,29 @@
     }
   };
 
-  // фильтруем имеющиеся у нас данные
+  // ДОПОЛНИТЕЛЬНЫЕ УДОБСТВА
+  var filterByFeature = function (feature) {
+    return function (offer) {
+      var element = filterForm.querySelector('#filter-' + feature);
+      if (!element.checked) {
+        return true;
+      } else {
+        return offer.offer.features.includes(feature);
+      }
+    };
+  };
+
+  // фильтруем имеющиеся (полученные до этого с сервера) данные
   var getFilteredOffers = function () {
     var filteredOffers = window.dataFiltered
     .filter(filterByType)
     .filter(filterByPrice)
     .filter(filterByRoomNum)
     .filter(filterByGuestsNum);
+
+    for (var featureIndex = 0; featureIndex < OFFER_FEATURES.length; featureIndex++) {
+      filteredOffers = filteredOffers.filter(filterByFeature(OFFER_FEATURES[featureIndex]));
+    }
 
     return filteredOffers;
   };
@@ -95,13 +111,13 @@
     window.card.remove();
     window.pin.delete();
     window.filteredOffers = getFilteredOffers();
-    console.log(window.filteredOffers);
     window.data.insert(window.filteredOffers);
   };
 
+  var debouncedPinsUpdate = window.debounce.set(updatePins);
+
   var onFilterChange = function (evt) {
-    if (evt.target && evt.target.matches('select.map__filter')) {
-      var debouncedPinsUpdate = window.debounce.set(updatePins);
+    if (evt.target && evt.target.matches('select.map__filter') || evt.target.matches('input.map__checkbox')) {
       debouncedPinsUpdate();
     }
   };
