@@ -11,6 +11,8 @@
     ANY: 'any'
   };
 
+  var OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+
   var filterForm = document.querySelector('.map__filters');
   var filterHouseType = filterForm.querySelector('#housing-type');
   var filterPrice = filterForm.querySelector('#housing-price');
@@ -114,7 +116,6 @@
   };
 
   window.filter = {
-    element: filterForm,
     updatePins: updatePins,
     addListener: addFiltersFormListener,
     reset: resetFiltersForm

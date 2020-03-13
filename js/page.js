@@ -16,6 +16,7 @@
     window.form.activate();
     window.form.setAddress(window.util.getMapPinCoordinates(mapPinMain));
     window.form.addEvtListeners();
+    window.filter.addListener();
   };
 
   var resetState = function () {
@@ -26,6 +27,7 @@
     window.mainPin.reset();
     window.form.deactivate();
     window.form.removeEvtListeners();
+    window.filter.reset();
 
     map.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');

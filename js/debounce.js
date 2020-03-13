@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var DEBOUNCE_INTERVAL = 500;
+  var DEBOUNCE_INTERVAL = 500; // 0.5 сек
 
   var debounce = function (cb) {
     var lastTimeout = null;
@@ -17,5 +17,7 @@
     };
   };
 
-  window.debounce = debounce;
+  window.debounce = {
+    set: debounce
+  };
 })();
