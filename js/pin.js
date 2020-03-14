@@ -32,18 +32,18 @@
     };
 
     // теперь слушаем клик на _каждом_ пине, кроме первой
-    for (var j = 0; j < allAdPins.length; j++) {
-      var pinArray = allAdPins[j];
-      addPinClickListener(pinArray, j);
-    }
+    allAdPins.forEach(function (element, i) {
+      addPinClickListener(element, i);
+    });
+
   };
 
   // удаление пинов
   var removePins = function () {
     var allAdPins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main');
-    for (var pinIndex = 0; pinIndex < allAdPins.length; pinIndex++) {
-      allAdPins[pinIndex].remove();
-    }
+    allAdPins.forEach(function (element) {
+      element.remove();
+    });
   };
 
   window.pin = {

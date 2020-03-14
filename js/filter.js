@@ -104,11 +104,11 @@
 
   // фильтрация по доп удобствам
   var filterByFeature = function (el) {
-    var featureElements = document.querySelectorAll('.map__checkbox');
+    var featureItems = document.querySelectorAll('.map__checkbox');
     var filterResult = true;
-    for (var i = 0; i < featureElements.length; i++) {
-      if (featureElements[i].checked) {
-        if (el.offer.features.indexOf(featureElements[i].value) === -1) {
+    for (var i = 0; i < featureItems.length; i++) {
+      if (featureItems[i].checked) {
+        if (el.offer.features.indexOf(featureItems[i].value) === -1) {
           filterResult = false;
           break;
         }
