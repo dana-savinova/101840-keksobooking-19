@@ -1,11 +1,11 @@
 'use strict';
 
 (function () {
-  var houseTypeToMinPrice = {
-    'bungalo': 0,
-    'flat': 1000,
-    'house': 5000,
-    'palace': 10000
+  var HouseMinPrice = {
+    BUNGALO: 0,
+    FLAT: 1000,
+    HOUSE: 5000,
+    PALACE: 10000
   };
 
   var filtersForm = document.querySelector('.map__filters');
@@ -36,16 +36,16 @@
     var value = evt.target.value;
     switch (value) {
       case 'bungalo':
-        changeMinPrice(houseTypeToMinPrice.bungalo);
+        changeMinPrice(HouseMinPrice.BUNGALO);
         break;
       case 'flat':
-        changeMinPrice(houseTypeToMinPrice.flat);
+        changeMinPrice(HouseMinPrice.FLAT);
         break;
       case 'house':
-        changeMinPrice(houseTypeToMinPrice.house);
+        changeMinPrice(HouseMinPrice.HOUSE);
         break;
       case 'palace':
-        changeMinPrice(houseTypeToMinPrice.palace);
+        changeMinPrice(HouseMinPrice.PALACE);
         break;
     }
   };
