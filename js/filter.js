@@ -34,10 +34,10 @@
   var activateFilter = function () {
     var filterOptions = Array.from(filterSelectList);
     filterOptions.forEach(function (element) {
-      element.removeAttribute('disabled', 'disabled');
+      element.removeAttribute('disabled');
     });
 
-    filterFeatures.removeAttribute('disabled', 'disabled');
+    filterFeatures.removeAttribute('disabled');
   };
 
   // вспомогательная функция для получения выбранного элемента option

@@ -79,15 +79,15 @@
   };
 
   var deactivateFields = function (formFields) {
-    for (var i = 0; i < formFields.length; i++) {
-      formFields[i].setAttribute('disabled', '');
-    }
+    formFields.forEach(function (element) {
+      element.setAttribute('disabled', 'disabled');
+    });
   };
 
   var activateFields = function (formFields) {
-    for (var i = 0; i < formFields.length; i++) {
-      formFields[i].removeAttribute('disabled');
-    }
+    formFields.forEach(function (element) {
+      element.removeAttribute('disabled');
+    });
   };
 
   var setAddFormAddress = function (coordinates, pinHalfWidth, pinHeight) {
