@@ -1,13 +1,12 @@
 'use strict';
 (function () {
   // перемещение маркера
-  // var MainPin = {
-  //   WIDTH: 62,
-  //   HEIGHT: 70
-  // };
+  var MainPin = {
+    WIDTH: 65,
+    HEIGHT: 70
+  };
 
-  var MAIN_PIN_WIDTH = 65;
-  var HALF_MAIN_PIN_WIDTH = Math.round(MAIN_PIN_WIDTH / 2);
+  var HALF_MAIN_PIN_WIDTH = Math.round(MainPin.WIDTH / 2);
 
 
   var mapPinMain = document.querySelector('.map__pin--main');
@@ -87,7 +86,7 @@
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      window.form.setAddress(window.util.getMapPinCoordinates(mapPinMain), HALF_MAIN_PIN_WIDTH);
+      window.form.setAddress(window.util.getMapPinCoordinates(mapPinMain), HALF_MAIN_PIN_WIDTH, MainPin.HEIGHT);
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
@@ -105,6 +104,7 @@
     element: mapPinMain,
     startCoords: mainPinInitialPosition,
     halfWidth: HALF_MAIN_PIN_WIDTH,
-    reset: resetMainPin
+    reset: resetMainPin,
+    size: MainPin
   };
 })();

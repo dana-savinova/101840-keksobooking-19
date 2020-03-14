@@ -90,17 +90,16 @@
     }
   };
 
-  var setAddFormAddress = function (coordinates, halfPinWidth) {
-    addFormAddress.value = (coordinates.x + halfPinWidth) + ', ' + coordinates.y;
+  var setAddFormAddress = function (coordinates, pinHalfWidth, pinHeight) {
+    addFormAddress.value = (coordinates.x + pinHalfWidth) + ', ' + (coordinates.y + pinHeight);
   };
 
   var setDefaultAdress = function () {
-    setAddFormAddress(window.mainPin.startCoords, window.mainPin.halfWidth);
+    setAddFormAddress(window.mainPin.startCoords, window.mainPin.halfWidth, window.mainPin.size.HEIGHT);
   };
 
   var resetForm = function () {
     addForm.reset();
-    // setAddFormAddress(window.mainPin.startCoords, window.mainPin.halfWidth);
     setDefaultAdress();
   };
 
