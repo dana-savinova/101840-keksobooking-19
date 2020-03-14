@@ -68,7 +68,7 @@
     actionIfLeftBtnEvent: actionIfLeftBtnEvent, // нажатие на левую кнопку мыши
     actionIfEscEvent: actionIfEscEvent, // нажатие на ESC
     getMapPinCoordinates: getMapPinCoordinates, // функция для получения координат метки
-    setDisableAttr: setDisableAttr,
-    removeDisableAttr: removeDisableAttr
+    setDisableAttr: setDisableAttr, // функция для установки атрибута disabled для списка элементов
+    removeDisableAttr: removeDisableAttr // функция для удаления атрибута disabled для списка элементов
   };
 })();
