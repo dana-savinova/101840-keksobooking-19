@@ -40,13 +40,14 @@
     document.body.insertAdjacentElement('afterbegin', successElement);
 
     var onDocumentKeydown = function (evt) {
-      window.util.isEscEvent(evt, function () {
+      window.util.actionIfEscEvent(evt, function () {
         removeSuccessMessage();
       });
     };
 
     var removeSuccessMessage = function () {
       successElement.remove();
+      window.form.reset();
       document.removeEventListener('click', removeSuccessMessage);
       document.removeEventListener('keydown', onDocumentKeydown);
     };

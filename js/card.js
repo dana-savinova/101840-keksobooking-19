@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var OFFERS_TYPE_TRANSLATION = {
+  var HouseTypeToName = {
     'palace': 'Дворец',
     'flat': 'Квартира',
     'house': 'Дом',
@@ -18,7 +18,7 @@
     // Выведите цену offer.price в блок .popup__text--price строкой вида {{offer.price}}₽/ночь. Например, 5200₽/ночь
     element.querySelector('.popup__text--price').textContent = offer.offer.price;
     // В блок .popup__type выведите тип жилья offer.type: Квартира для flat, Бунгало для bungalo, Дом для house, Дворец для palace.
-    element.querySelector('.popup__type').textContent = OFFERS_TYPE_TRANSLATION[offer.offer.type];
+    element.querySelector('.popup__type').textContent = HouseTypeToName[offer.offer.type];
     // Выведите количество гостей и комнат offer.rooms и offer.guests в блок .popup__text--capacity строкой вида {{offer.rooms}} комнаты для {{offer.guests}} гостей. Например, 2 комнаты для 3 гостей.
     element.querySelector('.popup__text--capacity').textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
     // Время заезда и выезда offer.checkin и offer.checkout в блок .popup__text--time строкой вида Заезд после {{offer.checkin}}, выезд до {{offer.checkout}}. Например, заезд после 14:00, выезд до 12:00
