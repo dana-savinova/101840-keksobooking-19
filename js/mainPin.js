@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   // перемещение маркера
   var MainPin = {

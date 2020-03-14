@@ -1,6 +1,6 @@
 'use strict';
-(function () {
 
+(function () {
   var createErrorMessage = function (errorMessage) {
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorPopup = errorTemplate.cloneNode(true);

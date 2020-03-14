@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var Url = {
     GET: 'https://js.dump.academy/keksobooking/data',

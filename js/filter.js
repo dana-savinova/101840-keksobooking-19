@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var PriceStep = {
     LOW: 10000,
