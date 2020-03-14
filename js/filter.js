@@ -14,10 +14,33 @@
   var OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
   var filterForm = document.querySelector('.map__filters');
+  var filterSelectList = filterForm.querySelectorAll('.map__filter');
   var filterHouseType = filterForm.querySelector('#housing-type');
   var filterPrice = filterForm.querySelector('#housing-price');
   var filterRoomsNum = filterForm.querySelector('#housing-rooms');
   var filterGuestsNum = filterForm.querySelector('#housing-guests');
+  var filterFeatures = filterForm.querySelector('#housing-features');
+
+
+  // деактивация фильтра
+  window.deactivateFilter = function () {
+    var filterOptions = Array.from(filterSelectList);
+    filterOptions.forEach(function (element) {
+      element.setAttribute('disabled', 'disabled');
+    });
+
+    filterFeatures.setAttribute('disabled', 'disabled');
+  };
+
+  // активация фильтра
+  window.activateFilter = function () {
+    var filterOptions = Array.from(filterSelectList);
+    filterOptions.forEach(function (element) {
+      element.removeAttribute('disabled', 'disabled');
+    });
+
+    filterFeatures.removeAttribute('disabled', 'disabled');
+  };
 
   // вспомогательная функция для получения выбранного элемента option
   var getSelectOptionValue = function (selectList) {

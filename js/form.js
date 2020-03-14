@@ -36,16 +36,16 @@
     var value = evt.target.value;
     switch (value) {
       case 'bungalo':
-        changeMinPrice(HOUSE_MIN_PRICES.bungalo);
+        changeMinPrice(houseTypeToMinPrice.bungalo);
         break;
       case 'flat':
-        changeMinPrice(HOUSE_MIN_PRICES.flat);
+        changeMinPrice(houseTypeToMinPrice.flat);
         break;
       case 'house':
-        changeMinPrice(HOUSE_MIN_PRICES.house);
+        changeMinPrice(houseTypeToMinPrice.house);
         break;
       case 'palace':
-        changeMinPrice(HOUSE_MIN_PRICES.palace);
+        changeMinPrice(houseTypeToMinPrice.palace);
         break;
     }
   };
