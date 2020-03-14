@@ -19,7 +19,6 @@
   var filterGuestsNum = filterForm.querySelector('#housing-guests');
   var filterFeatures = filterForm.querySelector('#housing-features');
 
-
   // деактивация фильтра
   var deactivateFilter = function () {
     var filterOptions = Array.from(filterSelectList);

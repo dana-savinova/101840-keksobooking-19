@@ -35,7 +35,6 @@
     allAdPins.forEach(function (element, i) {
       addPinClickListener(element, i);
     });
-
   };
 
   // удаление пинов

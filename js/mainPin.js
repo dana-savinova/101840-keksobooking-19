@@ -8,7 +8,6 @@
 
   var HALF_MAIN_PIN_WIDTH = Math.round(MainPin.WIDTH / 2);
 
-
   var mapPinMain = document.querySelector('.map__pin--main');
   var mapPins = document.querySelector('.map__pins');
   var mapPinsWidth = window.util.getElementWidth(mapPins);
@@ -103,8 +102,8 @@
   window.mainPin = {
     element: mapPinMain,
     startCoords: mainPinInitialPosition,
+    size: MainPin,
     halfWidth: HALF_MAIN_PIN_WIDTH,
-    reset: resetMainPin,
-    size: MainPin
+    reset: resetMainPin
   };
 })();
