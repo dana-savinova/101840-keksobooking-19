@@ -14,8 +14,9 @@
     adForm.classList.remove('ad-form--disabled');
     window.form.activate();
     window.form.addEvtListeners();
-    window.filter.addListener();
+    window.filter.addEvtListener();
     window.filter.activate();
+    window.mainPin.removeEvtListeners();
   };
 
   var resetState = function () {
@@ -24,6 +25,7 @@
     window.card.remove();
     window.pin.delete();
     window.mainPin.reset();
+    window.mainPin.addEvtListeners();
     window.form.deactivate();
     window.form.removeEvtListeners();
     window.filter.reset();

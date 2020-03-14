@@ -155,7 +155,7 @@
 
   window.filter = {
     updatePins: updatePins,
-    addListener: addFiltersFormListener,
+    addEvtListener: addFiltersFormListener,
     reset: resetFiltersForm,
     deactivate: deactivateFilter,
     activate: activateFilter

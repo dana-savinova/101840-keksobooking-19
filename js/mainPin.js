@@ -28,10 +28,12 @@
     window.util.actionIfEnterEvent(evt, window.page.activate);
   };
 
-  var onMainPinMove = function (evt) {
-    evt.preventDefault();
+  var onMapPinFistKeydown = function (evt) {
     window.util.actionIfLeftBtnEvent(evt, window.page.activate);
+  };
 
+  var onMainPinDown = function (evt) {
+    evt.preventDefault();
     // диапазон, в котором метка может перемещаться
     var moveRange = {
       top: 130,
@@ -97,14 +99,27 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
-  mapPinMain.addEventListener('mousedown', onMainPinMove);
+  mapPinMain.addEventListener('mousedown', onMainPinDown);
+
+  // добавление обработчиков
+  var setMainPinEventListeners = function () {
+    mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
+    mapPinMain.addEventListener('mousedown', onMapPinFistKeydown);
+  };
+
+  // удаление обработчиков после активации
+  var removeMainPinEventListeners = function () {
+    mapPinMain.removeEventListener('keydown', onMapPinMainKeydown);
+    mapPinMain.removeEventListener('mousedown', onMapPinFistKeydown);
+  };
 
   window.mainPin = {
     element: mapPinMain,
     startCoords: mainPinInitialPosition,
     size: MainPin,
     halfWidth: HALF_MAIN_PIN_WIDTH,
-    reset: resetMainPin
+    reset: resetMainPin,
+    addEvtListeners: setMainPinEventListeners,
+    removeEvtListeners: removeMainPinEventListeners
   };
 })();
