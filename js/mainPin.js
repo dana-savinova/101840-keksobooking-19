@@ -1,10 +1,10 @@
 'use strict';
 (function () {
   // перемещение маркера
-  var MainPin = {
-    WIDTH: 62,
-    HEIGHT: 70
-  };
+  // var MainPin = {
+  //   WIDTH: 62,
+  //   HEIGHT: 70
+  // };
 
   var MAIN_PIN_WIDTH = 65;
   var HALF_MAIN_PIN_WIDTH = Math.round(MAIN_PIN_WIDTH / 2);
@@ -25,16 +25,13 @@
   };
 
   // обработчики событий
-  var onMapPinMainClick = function (evt) {
-    window.util.actionIfLeftBtnEvent(evt, window.page.activate);
-  };
-
   var onMapPinMainKeydown = function (evt) {
     window.util.actionIfEnterEvent(evt, window.page.activate);
   };
 
   var onMainPinMove = function (evt) {
     evt.preventDefault();
+    window.util.actionIfLeftBtnEvent(evt, window.page.activate);
 
     // диапазон, в котором метка может перемещаться
     var moveRange = {
@@ -101,7 +98,6 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  mapPinMain.addEventListener('mousedown', onMapPinMainClick);
   mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
   mapPinMain.addEventListener('mousedown', onMainPinMove);
 
