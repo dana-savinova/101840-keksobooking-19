@@ -1,6 +1,11 @@
 'use strict';
 (function () {
   // перемещение маркера
+  var MainPin = {
+    WIDTH: 62,
+    HEIGHT: 70
+  };
+
   var MAIN_PIN_WIDTH = 65;
   var HALF_MAIN_PIN_WIDTH = Math.round(MAIN_PIN_WIDTH / 2);
 
@@ -96,7 +101,7 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  mapPinMain.addEventListener('mouseup', onMapPinMainClick);
+  mapPinMain.addEventListener('mousedown', onMapPinMainClick);
   mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
   mapPinMain.addEventListener('mousedown', onMainPinMove);
 
