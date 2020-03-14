@@ -91,7 +91,7 @@
 
   var insertCard = function (offer) {
     // тк попап показывается только один, а пользователь может кликнуть на метку в момент, когда текущий открыт, то сперва проверяем открыта ли карточка, если да закрываем
-    if (window.cardPopup) {
+    if (map.querySelector('.popup')) {
       removeCard();
     }
 
@@ -100,10 +100,7 @@
     map.insertBefore(card, mapFiltersContainer);
 
     var cardPopup = map.querySelector('.popup'); // После того как вставили находим этот карточку
-    window.cardPopup = cardPopup;
-
     var cardCloseBtn = cardPopup.querySelector('.popup__close');
-    window.cardCloseBtn = cardCloseBtn;
     cardCloseBtn.focus();
 
     cardCloseBtn.addEventListener('click', removeCard); // слушаем клик на крестике для закрытия
@@ -117,12 +114,13 @@
   };
 
   var removeCard = function () {
+    var cardPopup = map.querySelector('.popup');
     var currentPin = map.querySelector('.map__pin--active');
-    if (window.cardPopup) {
-      window.cardCloseBtn.removeEventListener('click', removeCard);
+    if (map.querySelector('.popup')) {
+      cardPopup.querySelector('.popup__close').removeEventListener('click', removeCard);
       document.removeEventListener('keydown', onMapKeydown);
 
-      window.cardPopup.remove();
+      cardPopup.remove();
       currentPin.classList.remove('map__pin--active');
     }
   };
