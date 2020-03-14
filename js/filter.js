@@ -53,17 +53,17 @@
   };
 
   // фильтрация по типу жилья
-  var filterByType = function (el) {
+  var filterByType = function (element) {
     if (getSelectOptionValue(filterHouseType).value === FilterValue.ANY) {
       return true;
     } else {
-      return el.offer.type === getSelectOptionValue(filterHouseType).value;
+      return element.offer.type === getSelectOptionValue(filterHouseType).value;
     }
   };
 
   // вспомогательная функция, которая помогает сопоставить зачения цены с значениями в фильтре
-  var checkOfferPrice = function (el) {
-    var price = parseInt(el.offer.price, 10);
+  var checkOfferPrice = function (element) {
+    var price = parseInt(element.offer.price, 10);
     if (price < PriceStep.LOW) {
       return FilterValue.LOW;
     } else if (price >= PriceStep.LOW && price <= PriceStep.HIGH) {
@@ -76,39 +76,39 @@
   };
 
   // фильтрация по цене
-  var filterByPrice = function (el) {
+  var filterByPrice = function (element) {
     if (getSelectOptionValue(filterPrice).value === FilterValue.ANY) {
       return true;
     } else {
-      return checkOfferPrice(el) === getSelectOptionValue(filterPrice).value;
+      return checkOfferPrice(element) === getSelectOptionValue(filterPrice).value;
     }
   };
 
   // фильтрация по количеству комнат
-  var filterByRoomNum = function (el) {
+  var filterByRoomNum = function (element) {
     if (getSelectOptionValue(filterRoomsNum).value === FilterValue.ANY) {
       return true;
     } else {
-      return el.offer.rooms === parseInt(getSelectOptionValue(filterRoomsNum).value, 10);
+      return element.offer.rooms === parseInt(getSelectOptionValue(filterRoomsNum).value, 10);
     }
   };
 
   // фильтрация по количеству гостей
-  var filterByGuestsNum = function (el) {
+  var filterByGuestsNum = function (element) {
     if (getSelectOptionValue(filterGuestsNum).value === FilterValue.ANY) {
       return true;
     } else {
-      return el.offer.guests === parseInt((getSelectOptionValue(filterGuestsNum).value), 10);
+      return element.offer.guests === parseInt((getSelectOptionValue(filterGuestsNum).value), 10);
     }
   };
 
   // фильтрация по доп удобствам
-  var filterByFeature = function (el) {
+  var filterByFeature = function (element) {
     var featureItems = document.querySelectorAll('.map__checkbox');
     var filterResult = true;
     for (var i = 0; i < featureItems.length; i++) {
       if (featureItems[i].checked) {
-        if (el.offer.features.indexOf(featureItems[i].value) === -1) {
+        if (element.offer.features.indexOf(featureItems[i].value) === -1) {
           filterResult = false;
           break;
         }
@@ -119,12 +119,12 @@
 
   // фильтруем имеющиеся (полученные до этого с сервера) данные
   var getFilteredOffers = function () {
-    var filteredOffers = window.dataFiltered.filter(function (el) {
-      return filterByType(el) &&
-          filterByPrice(el) &&
-          filterByRoomNum(el) &&
-          filterByGuestsNum(el) &&
-          filterByFeature(el);
+    var filteredOffers = window.dataFiltered.filter(function (element) {
+      return filterByType(element) &&
+          filterByPrice(element) &&
+          filterByRoomNum(element) &&
+          filterByGuestsNum(element) &&
+          filterByFeature(element);
     });
     return filteredOffers;
   };

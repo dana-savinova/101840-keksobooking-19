@@ -32,9 +32,9 @@
       element.querySelector('.popup__features').innerHTML = '';
 
       for (var i = 0; i < data.offer.features.length; i++) {
-        var newElement = document.createElement('li');
-        newElement.className = 'popup__feature popup__feature--' + data.offer.features[i];
-        element.querySelector('.popup__features').appendChild(newElement);
+        var newItem = document.createElement('li');
+        newItem.className = 'popup__feature popup__feature--' + data.offer.features[i];
+        element.querySelector('.popup__features').appendChild(newItem);
       }
     }
   };
@@ -73,19 +73,19 @@
   };
 
   var renderCard = function (offer) {
-    var adCardElement = adCardTemplate.cloneNode(true);
+    var adCard = adCardTemplate.cloneNode(true);
     // вставляем значения в обязательные поля
-    setAdFieldRequiredValue(adCardElement, offer);
+    setAdFieldRequiredValue(adCard, offer);
     // В список .popup__features выведите все доступные удобства в объявлении.
-    setAdFieldFeaturesValue(adCardElement, offer);
+    setAdFieldFeaturesValue(adCard, offer);
     // В блок .popup__description выведите описание объекта недвижимости offer.description.
-    setAdFieldDescValue(adCardElement, offer);
+    setAdFieldDescValue(adCard, offer);
     // В блок .popup__photos выведите все фотографии из списка offer.photos. Каждая из строк массива photos должна записываться как src соответствующего изображения.
-    setAdPhoto(adCardElement, offer);
+    setAdPhoto(adCard, offer);
     // Замените src у аватарки пользователя — изображения, которое записано в .popup__avatar — на значения поля author.avatar отрисовываемого объекта.
-    checkAvatar(adCardElement, offer);
+    checkAvatar(adCard, offer);
 
-    return adCardElement;
+    return adCard;
   };
 
   var insertCard = function (offer) {

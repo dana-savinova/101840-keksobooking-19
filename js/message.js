@@ -3,19 +3,19 @@
 
   var createErrorMessage = function (errorMessage) {
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    var errorElement = errorTemplate.cloneNode(true);
-    var errorButton = errorElement.querySelector('.error__button');
+    var errorPopup = errorTemplate.cloneNode(true);
+    var errorButton = errorPopup.querySelector('.error__button');
 
     errorButton.focus();
-    errorElement.style.zIndex = 100;
-    errorElement.querySelector('.error__message').textContent = errorMessage;
+    errorPopup.style.zIndex = 100;
+    errorPopup.querySelector('.error__message').textContent = errorMessage;
 
     // вставляем блок с ошибкой на страницу
-    document.body.insertAdjacentElement('afterbegin', errorElement);
+    document.body.insertAdjacentElement('afterbegin', errorPopup);
 
     errorButton.addEventListener('click', function (evt) {
       evt.preventDefault();
-      errorElement.remove();
+      errorPopup.remove();
     });
 
     var onDocumentKeydown = function (evt) {
@@ -25,7 +25,7 @@
     };
 
     var removeErrorMessage = function () {
-      errorElement.remove();
+      errorPopup.remove();
       document.removeEventListener('click', removeErrorMessage);
       document.removeEventListener('keydown', onDocumentKeydown);
     };
