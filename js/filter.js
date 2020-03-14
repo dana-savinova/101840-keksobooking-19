@@ -23,7 +23,7 @@
 
 
   // деактивация фильтра
-  window.deactivateFilter = function () {
+  var deactivateFilter = function () {
     var filterOptions = Array.from(filterSelectList);
     filterOptions.forEach(function (element) {
       element.setAttribute('disabled', 'disabled');
@@ -33,7 +33,7 @@
   };
 
   // активация фильтра
-  window.activateFilter = function () {
+  var activateFilter = function () {
     var filterOptions = Array.from(filterSelectList);
     filterOptions.forEach(function (element) {
       element.removeAttribute('disabled', 'disabled');
@@ -158,6 +158,8 @@
   window.filter = {
     updatePins: updatePins,
     addListener: addFiltersFormListener,
-    reset: resetFiltersForm
+    reset: resetFiltersForm,
+    deactivate: deactivateFilter,
+    activate: activateFilter
   };
 })();

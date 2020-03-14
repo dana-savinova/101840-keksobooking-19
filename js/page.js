@@ -15,6 +15,7 @@
     window.form.activate();
     window.form.addEvtListeners();
     window.filter.addListener();
+    window.filter.activate();
   };
 
   var resetState = function () {
@@ -26,6 +27,7 @@
     window.form.deactivate();
     window.form.removeEvtListeners();
     window.filter.reset();
+    window.filter.deactivate();
 
     map.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
