@@ -134,7 +134,6 @@
     window.pin.delete();
     var filteredOffers = getFilteredOffers();
     window.data.insert(filteredOffers);
-    console.log(filteredOffers);
   };
 
   var debouncedPinsUpdate = window.debounce.set(updatePins);

@@ -48,18 +48,18 @@
   };
 
   var setAdPhoto = function (element, data) {
+    var photoWrapper = element.querySelector('.popup__photos');
+    var similarPhotoTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
     if (data.offer.features.length === 0) {
-      element.querySelector('.popup__photos').style.cssText = 'display: none';
+      photoWrapper.style.cssText = 'display: none';
     } else {
       // ищем блок для фото, чтобы очистить его содержимое
-      element.querySelector('.popup__photos').innerHTML = ''; // тут чистим его содержимое, теперь он пустой
-      var block = element.querySelector('.popup__photos');
+      photoWrapper.innerHTML = ''; // тут чистим его содержимое, теперь он пустой
 
       for (var i = 0; i < data.offer.photos.length; i++) {
-        var similarPhotoTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
         var newPhoto = similarPhotoTemplate.cloneNode(true);
         newPhoto.src = data.offer.photos[i];
-        block.appendChild(newPhoto);
+        photoWrapper.appendChild(newPhoto);
       }
     }
   };
@@ -95,7 +95,8 @@
     }
 
     var card = renderCard(offer);
-    var referenceElement = map.querySelector('.map__filters-container'); map.insertBefore(card, referenceElement);
+    var mapFiltersContainer = map.querySelector('.map__filters-container');
+    map.insertBefore(card, mapFiltersContainer);
     var cardPopup = map.querySelector('.popup'); // После того как вставили находим этот карточку
     var cardCloseBtn = cardPopup.querySelector('.popup__close');
     cardCloseBtn.focus();
