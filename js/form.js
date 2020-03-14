@@ -90,9 +90,24 @@
     }
   };
 
+  var setAddFormAddress = function (coordinates, halfPinWidth) {
+    addFormAddress.value = (coordinates.x + halfPinWidth) + ', ' + coordinates.y;
+  };
+
+  var setDefaultAdress = function () {
+    setAddFormAddress(window.mainPin.startCoords, window.mainPin.halfWidth);
+  };
+
+  var resetForm = function () {
+    addForm.reset();
+    // setAddFormAddress(window.mainPin.startCoords, window.mainPin.halfWidth);
+    setDefaultAdress();
+  };
+
   var deactivateForm = function () {
     deactivateFields(addFormFields);
     deactivateFields(filtersFormFields);
+    resetForm();
   };
 
   var activateForm = function () {
@@ -100,14 +115,9 @@
     activateFields(filtersFormFields);
   };
 
-  var resetForm = function () {
-    addForm.reset();
-    window.form.setAddress(window.util.getMapPinCoordinates(window.mainPin.element));
-  };
-
   var onFormSubmit = function () {
-    window.page.deactivate();
     window.message.success();
+    window.page.deactivate();
   };
 
   var onSubmitBtnClick = function (evt) {
@@ -117,7 +127,6 @@
 
   var onResetBtnClick = function (evt) {
     evt.preventDefault();
-    resetForm();
     window.page.deactivate();
   };
 
@@ -138,12 +147,6 @@
     addForm.removeEventListener('submit', onSubmitBtnClick);
     addFormResetBtn.removeEventListener('click', onResetBtnClick);
   };
-
-  var setAddFormAddress = function (coordinates, halfPinWidth) {
-    addFormAddress.value = (coordinates.x + halfPinWidth) + ', ' + coordinates.y;
-  };
-
-  deactivateForm();
 
   window.form = {
     deactivate: deactivateForm,

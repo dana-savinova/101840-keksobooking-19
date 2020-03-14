@@ -102,6 +102,8 @@
 
   window.mainPin = {
     element: mapPinMain,
+    startCoords: mainPinInitialPosition,
+    halfWidth: HALF_MAIN_PIN_WIDTH,
     reset: resetMainPin
   };
 })();
