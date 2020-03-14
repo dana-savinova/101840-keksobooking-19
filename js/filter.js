@@ -22,22 +22,14 @@
 
   // деактивация фильтра
   var deactivateFilter = function () {
-    var filterOptions = Array.from(filterSelectList);
-    filterOptions.forEach(function (element) {
-      element.setAttribute('disabled', 'disabled');
-    });
-
+    window.util.setDisableAttr(filterSelectList);
     filterFeatures.setAttribute('disabled', 'disabled');
   };
 
   // активация фильтра
   var activateFilter = function () {
-    var filterOptions = Array.from(filterSelectList);
-    filterOptions.forEach(function (element) {
-      element.removeAttribute('disabled');
-    });
-
-    filterFeatures.removeAttribute('disabled');
+    window.util.removeDisableAttr(filterSelectList);
+    filterFeatures.removeAttribute('disabled', 'disabled');
   };
 
   // вспомогательная функция для получения выбранного элемента option

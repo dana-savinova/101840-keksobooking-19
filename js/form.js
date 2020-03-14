@@ -8,9 +8,6 @@
     PALACE: 10000
   };
 
-  var filtersForm = document.querySelector('.map__filters');
-  var filtersFormFields = filtersForm.querySelectorAll('fieldset');
-
   var addForm = document.querySelector('.ad-form');
   var addFormFields = addForm.querySelectorAll('fieldset');
   var addFormAddress = addForm.querySelector('#address');
@@ -78,18 +75,6 @@
     }
   };
 
-  var deactivateFields = function (formFields) {
-    formFields.forEach(function (element) {
-      element.setAttribute('disabled', 'disabled');
-    });
-  };
-
-  var activateFields = function (formFields) {
-    formFields.forEach(function (element) {
-      element.removeAttribute('disabled');
-    });
-  };
-
   var setAddFormAddress = function (coordinates, pinHalfWidth, pinHeight) {
     addFormAddress.value = (coordinates.x + pinHalfWidth) + ', ' + (coordinates.y + pinHeight);
   };
@@ -104,14 +89,12 @@
   };
 
   var deactivateForm = function () {
-    deactivateFields(addFormFields);
-    deactivateFields(filtersFormFields);
+    window.util.setDisableAttr(addFormFields);
     resetForm();
   };
 
   var activateForm = function () {
-    activateFields(addFormFields);
-    activateFields(filtersFormFields);
+    window.util.removeDisableAttr(addFormFields);
   };
 
   var onFormSubmit = function () {

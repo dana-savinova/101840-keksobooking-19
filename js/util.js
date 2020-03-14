@@ -46,11 +46,29 @@
     };
   };
 
+  // функция для установки атрибута disabled
+  var setDisableAttr = function (elementList) {
+    var elementArray = Array.from(elementList);
+    elementArray.forEach(function (element) {
+      element.setAttribute('disabled', 'disabled');
+    });
+  };
+
+  // активация полей
+  var removeDisableAttr = function (elementList) {
+    var elementArray = Array.from(elementList);
+    elementArray.forEach(function (element) {
+      element.removeAttribute('disabled');
+    });
+  };
+
   window.util = {
     getElementWidth: getElementWidth, // получение размера элемента
     actionIfEnterEvent: actionIfEnterEvent, // нажатие на enter
     actionIfLeftBtnEvent: actionIfLeftBtnEvent, // нажатие на левую кнопку мыши
     actionIfEscEvent: actionIfEscEvent, // нажатие на ESC
-    getMapPinCoordinates: getMapPinCoordinates // функция для получения координат метки
+    getMapPinCoordinates: getMapPinCoordinates, // функция для получения координат метки
+    setDisableAttr: setDisableAttr,
+    removeDisableAttr: removeDisableAttr
   };
 })();
