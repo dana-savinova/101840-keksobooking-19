@@ -3,14 +3,19 @@
 (function () {
   var mapPins = document.querySelector('.map__pins');
 
+  var PinSize = {
+    WIDTH: 50,
+    HEIGHT: 70
+  };
+
   // отрисовка пина с аватаркой на карте
   var renderOfferItem = function (offer) {
     var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
     var offerItem = mapPinTemplate.cloneNode(true);
     var img = offerItem.querySelector('img');
 
-    offerItem.style.left = offer.location.x + 'px';
-    offerItem.style.top = offer.location.y + 'px';
+    offerItem.style.left = (offer.location.x - PinSize.WIDTH / 2) + 'px';
+    offerItem.style.top = (offer.location.y - PinSize.HEIGHT) + 'px';
     img.src = offer.author.avatar;
     img.alt = offer.offer.description;
 
