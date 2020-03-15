@@ -1,15 +1,12 @@
 'use strict';
 
 (function () {
-  var HOUSE_MIN_PRICES = {
-    'bungalo': 0,
-    'flat': 1000,
-    'house': 5000,
-    'palace': 10000
+  var HouseMinPrice = {
+    BUNGALO: 0,
+    FLAT: 1000,
+    HOUSE: 5000,
+    PALACE: 10000
   };
-
-  var filtersForm = document.querySelector('.map__filters');
-  var filtersFormFields = filtersForm.querySelectorAll('fieldset');
 
   var addForm = document.querySelector('.ad-form');
   var addFormFields = addForm.querySelectorAll('fieldset');
@@ -36,16 +33,16 @@
     var value = evt.target.value;
     switch (value) {
       case 'bungalo':
-        changeMinPrice(HOUSE_MIN_PRICES.bungalo);
+        changeMinPrice(HouseMinPrice.BUNGALO);
         break;
       case 'flat':
-        changeMinPrice(HOUSE_MIN_PRICES.flat);
+        changeMinPrice(HouseMinPrice.FLAT);
         break;
       case 'house':
-        changeMinPrice(HOUSE_MIN_PRICES.house);
+        changeMinPrice(HouseMinPrice.HOUSE);
         break;
       case 'palace':
-        changeMinPrice(HOUSE_MIN_PRICES.palace);
+        changeMinPrice(HouseMinPrice.PALACE);
         break;
     }
   };
@@ -78,41 +75,26 @@
     }
   };
 
-  var deactivateFields = function (formFields) {
-    for (var i = 0; i < formFields.length; i++) {
-      formFields[i].setAttribute('disabled', '');
-    }
-  };
-
-  var activateFields = function (formFields) {
-    for (var i = 0; i < formFields.length; i++) {
-      formFields[i].removeAttribute('disabled');
-    }
-  };
-
-  var setAddFormAddress = function (coordinates, halfPinWidth) {
-    addFormAddress.value = (coordinates.x + halfPinWidth) + ', ' + coordinates.y;
+  var setAddFormAddress = function (coordinates, pinHalfWidth, pinHeight) {
+    addFormAddress.value = (coordinates.x + pinHalfWidth) + ', ' + (coordinates.y + pinHeight);
   };
 
   var setDefaultAdress = function () {
-    setAddFormAddress(window.mainPin.startCoords, window.mainPin.halfWidth);
+    setAddFormAddress(window.mainPin.startCoords, window.mainPin.halfWidth, window.mainPin.size.HEIGHT);
   };
 
   var resetForm = function () {
     addForm.reset();
-    // setAddFormAddress(window.mainPin.startCoords, window.mainPin.halfWidth);
     setDefaultAdress();
   };
 
   var deactivateForm = function () {
-    deactivateFields(addFormFields);
-    deactivateFields(filtersFormFields);
+    window.util.setDisableAttr(addFormFields);
     resetForm();
   };
 
   var activateForm = function () {
-    activateFields(addFormFields);
-    activateFields(filtersFormFields);
+    window.util.removeDisableAttr(addFormFields);
   };
 
   var onFormSubmit = function () {

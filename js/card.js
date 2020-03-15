@@ -1,6 +1,7 @@
 'use strict';
+
 (function () {
-  var HouseTypeToName = {
+  var houseTypeToName = {
     'palace': 'Дворец',
     'flat': 'Квартира',
     'house': 'Дом',
@@ -10,82 +11,82 @@
   var map = document.querySelector('.map');
   var adCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-  var setAdFieldRequiredValue = function (element, offer) {
+  var setAdFieldRequiredValue = function (element, data) {
     // Выведите заголовок объявления offer.title в заголовок .popup__title
-    element.querySelector('.popup__title').textContent = offer.offer.title;
+    element.querySelector('.popup__title').textContent = data.offer.title;
     // Выведите адрес offer.address в блок .popup__text--address
-    element.querySelector('.popup__text--address').textContent = offer.offer.address;
+    element.querySelector('.popup__text--address').textContent = data.offer.address;
     // Выведите цену offer.price в блок .popup__text--price строкой вида {{offer.price}}₽/ночь. Например, 5200₽/ночь
-    element.querySelector('.popup__text--price').textContent = offer.offer.price;
+    element.querySelector('.popup__text--price').textContent = data.offer.price;
     // В блок .popup__type выведите тип жилья offer.type: Квартира для flat, Бунгало для bungalo, Дом для house, Дворец для palace.
-    element.querySelector('.popup__type').textContent = HouseTypeToName[offer.offer.type];
+    element.querySelector('.popup__type').textContent = houseTypeToName[data.offer.type];
     // Выведите количество гостей и комнат offer.rooms и offer.guests в блок .popup__text--capacity строкой вида {{offer.rooms}} комнаты для {{offer.guests}} гостей. Например, 2 комнаты для 3 гостей.
-    element.querySelector('.popup__text--capacity').textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
+    element.querySelector('.popup__text--capacity').textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
     // Время заезда и выезда offer.checkin и offer.checkout в блок .popup__text--time строкой вида Заезд после {{offer.checkin}}, выезд до {{offer.checkout}}. Например, заезд после 14:00, выезд до 12:00
-    element.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ' , выезд до ' + offer.offer.checkout;
+    element.querySelector('.popup__text--time').textContent = 'Заезд после ' + data.offer.checkin + ' , выезд до ' + data.offer.checkout;
   };
 
-  var setAdFieldFeaturesValue = function (element, offer) {
-    if (offer.offer.features.length === 0) {
+  var setAdFieldFeaturesValue = function (element, data) {
+    if (data.offer.features.length === 0) {
       element.querySelector('.popup__features').classList.add('hidden');
     } else {
       element.querySelector('.popup__features').innerHTML = '';
 
-      for (var i = 0; i < offer.offer.features.length; i++) {
-        var newElement = document.createElement('li');
-        newElement.className = 'popup__feature popup__feature--' + offer.offer.features[i];
-        element.querySelector('.popup__features').appendChild(newElement);
+      for (var i = 0; i < data.offer.features.length; i++) {
+        var newItem = document.createElement('li');
+        newItem.className = 'popup__feature popup__feature--' + data.offer.features[i];
+        element.querySelector('.popup__features').appendChild(newItem);
       }
     }
   };
 
-  var setAdFieldDescValue = function (element, offer) {
-    if (offer.offer.description === 0) {
+  var setAdFieldDescValue = function (element, data) {
+    if (data.offer.description === 0) {
       element.querySelector('.popup__description').classList.add('hidden');
     } else {
-      element.querySelector('.popup__description').textContent = offer.offer.description;
+      element.querySelector('.popup__description').textContent = data.offer.description;
     }
   };
 
-  var setAdPhoto = function (element, offer) {
-    if (offer.offer.features.length === 0) {
-      element.querySelector('.popup__photos').style.cssText = 'display: none';
+  var setAdPhoto = function (element, data) {
+    var photoWrapper = element.querySelector('.popup__photos');
+    var similarPhotoTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
+    if (data.offer.features.length === 0) {
+      photoWrapper.style.cssText = 'display: none';
     } else {
       // ищем блок для фото, чтобы очистить его содержимое
-      element.querySelector('.popup__photos').innerHTML = ''; // тут чистим его содержимое, теперь он пустой
-      var block = element.querySelector('.popup__photos');
+      photoWrapper.innerHTML = ''; // тут чистим его содержимое, теперь он пустой
 
-      for (var i = 0; i < offer.offer.photos.length; i++) {
-        var similarPhotoTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
+      for (var i = 0; i < data.offer.photos.length; i++) {
         var newPhoto = similarPhotoTemplate.cloneNode(true);
-        newPhoto.src = offer.offer.photos[i];
-        block.appendChild(newPhoto);
+        newPhoto.src = data.offer.photos[i];
+        photoWrapper.appendChild(newPhoto);
       }
     }
   };
 
-  var checkAvatar = function (element, offer) {
-    if (offer.author.avatar) {
-      element.querySelector('.popup__avatar').src = offer.author.avatar;
+  var checkAvatar = function (element, data) {
+    if (data.author.avatar) {
+      element.querySelector('.popup__avatar').src = data.author.avatar;
     } else {
       element.querySelector('.popup__avatar').classList.add('hidden');
     }
   };
 
   var renderCard = function (offer) {
-    var adCardElement = adCardTemplate.cloneNode(true);
+    var adCard = adCardTemplate.cloneNode(true);
     // вставляем значения в обязательные поля
-    setAdFieldRequiredValue(adCardElement, offer);
+    setAdFieldRequiredValue(adCard, offer);
     // В список .popup__features выведите все доступные удобства в объявлении.
-    setAdFieldFeaturesValue(adCardElement, offer);
+    setAdFieldFeaturesValue(adCard, offer);
     // В блок .popup__description выведите описание объекта недвижимости offer.description.
-    setAdFieldDescValue(adCardElement, offer);
+    setAdFieldDescValue(adCard, offer);
     // В блок .popup__photos выведите все фотографии из списка offer.photos. Каждая из строк массива photos должна записываться как src соответствующего изображения.
-    setAdPhoto(adCardElement, offer);
+    setAdPhoto(adCard, offer);
     // Замените src у аватарки пользователя — изображения, которое записано в .popup__avatar — на значения поля author.avatar отрисовываемого объекта.
-    checkAvatar(adCardElement, offer);
+    checkAvatar(adCard, offer);
 
-    return adCardElement;
+    return adCard;
   };
 
   var insertCard = function (offer) {
@@ -95,7 +96,9 @@
     }
 
     var card = renderCard(offer);
-    var referenceElement = map.querySelector('.map__filters-container'); map.insertBefore(card, referenceElement);
+    var mapFiltersContainer = map.querySelector('.map__filters-container');
+    map.insertBefore(card, mapFiltersContainer);
+
     var cardPopup = map.querySelector('.popup'); // После того как вставили находим этот карточку
     var cardCloseBtn = cardPopup.querySelector('.popup__close');
     cardCloseBtn.focus();
