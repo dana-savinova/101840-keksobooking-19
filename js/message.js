@@ -1,31 +1,31 @@
 'use strict';
-(function () {
 
+(function () {
   var createErrorMessage = function (errorMessage) {
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    var errorElement = errorTemplate.cloneNode(true);
-    var errorButton = errorElement.querySelector('.error__button');
+    var errorPopup = errorTemplate.cloneNode(true);
+    var errorButton = errorPopup.querySelector('.error__button');
 
     errorButton.focus();
-    errorElement.style.zIndex = 100;
-    errorElement.querySelector('.error__message').textContent = errorMessage;
+    errorPopup.style.zIndex = 100;
+    errorPopup.querySelector('.error__message').textContent = errorMessage;
 
     // вставляем блок с ошибкой на страницу
-    document.body.insertAdjacentElement('afterbegin', errorElement);
+    document.body.insertAdjacentElement('afterbegin', errorPopup);
 
     errorButton.addEventListener('click', function (evt) {
       evt.preventDefault();
-      errorElement.remove();
+      errorPopup.remove();
     });
 
     var onDocumentKeydown = function (evt) {
-      window.util.isEscEvent(evt, function () {
+      window.util.actionIfEscEvent(evt, function () {
         removeErrorMessage();
       });
     };
 
     var removeErrorMessage = function () {
-      errorElement.remove();
+      errorPopup.remove();
       document.removeEventListener('click', removeErrorMessage);
       document.removeEventListener('keydown', onDocumentKeydown);
     };
@@ -36,8 +36,8 @@
 
   var createSuccessMessage = function () {
     var successTemplate = document.querySelector('#success').content.querySelector('.success');
-    var successElement = successTemplate.cloneNode(true);
-    document.body.insertAdjacentElement('afterbegin', successElement);
+    var successPopup = successTemplate.cloneNode(true);
+    document.body.insertAdjacentElement('afterbegin', successPopup);
 
     var onDocumentKeydown = function (evt) {
       window.util.actionIfEscEvent(evt, function () {
@@ -46,7 +46,7 @@
     };
 
     var removeSuccessMessage = function () {
-      successElement.remove();
+      successPopup.remove();
       window.form.reset();
       document.removeEventListener('click', removeSuccessMessage);
       document.removeEventListener('keydown', onDocumentKeydown);

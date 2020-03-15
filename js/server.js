@@ -1,15 +1,12 @@
 'use strict';
+
 (function () {
   var Url = {
     GET: 'https://js.dump.academy/keksobooking/data',
     POST: 'https://js.dump.academy/keksobooking'
   };
   var ResponseCode = {
-    SUCCESS: 200,
-    BAD_REQUEST: 400,
-    UNAUTHORIZED: 401,
-    NOT_FOUND: 404,
-    SERVICE_UNAVAILABLE: 503,
+    SUCCESS: 200
   };
 
   var DataExchangeFormat = {
@@ -38,30 +35,10 @@
 
   var addXhrListener = function (xhr, action, errorAction) {
     xhr.addEventListener('load', function () {
-      var errorMessage;
-      switch (xhr.status) {
-        case ResponseCode.SUCCESS:
-          action(xhr.response);
-          break;
-        case ResponseCode.BAD_REQUEST:
-          errorMessage = 'Неверный запрос на сервер. Пожалуйста, проверьте данные и повторите попытку снова';
-          break;
-        case ResponseCode.UNAUTHORIZED:
-          errorMessage = 'Вы не авторизованы. Пожалуйста, войдите в свой профиль и повторите попытку снова';
-          break;
-        case ResponseCode.NOT_FOUND:
-          errorMessage = 'Запрашиваемый ресурс не найден';
-          break;
-        case ResponseCode.SERVICE_UNAVAILABLE:
-          errorMessage = 'Сервис временно недоступен. Пожалуйста, зайдите позже';
-          break;
-
-        default:
-          errorMessage = 'Статус ответа: ' + xhr.status + ' ' + xhr.statusText;
-      }
-      if (errorMessage) {
-        errorAction(errorMessage);
-        throw new Error('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+      if (xhr.status === ResponseCode.SUCCESS) {
+        action(xhr.response);
+      } else {
+        errorAction('Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText);
       }
     });
 

@@ -1,9 +1,13 @@
 'use strict';
+
 (function () {
   // перемещение маркера
-  var MAIN_PIN_WIDTH = 65;
-  var HALF_MAIN_PIN_WIDTH = Math.round(MAIN_PIN_WIDTH / 2);
+  var MainPin = {
+    WIDTH: 65,
+    HEIGHT: 70
+  };
 
+  var HALF_MAIN_PIN_WIDTH = Math.round(MainPin.WIDTH / 2);
 
   var mapPinMain = document.querySelector('.map__pin--main');
   var mapPins = document.querySelector('.map__pins');
@@ -20,17 +24,16 @@
   };
 
   // обработчики событий
-  var onMapPinMainClick = function (evt) {
-    window.util.actionIfLeftBtnEvent(evt, window.page.activate);
-  };
-
   var onMapPinMainKeydown = function (evt) {
     window.util.actionIfEnterEvent(evt, window.page.activate);
   };
 
-  var onMainPinMove = function (evt) {
-    evt.preventDefault();
+  var onMapPinFirstKeydown = function (evt) {
+    window.util.actionIfLeftBtnEvent(evt, window.page.activate);
+  };
 
+  var onMainPinDown = function (evt) {
+    evt.preventDefault();
     // диапазон, в котором метка может перемещаться
     var moveRange = {
       top: 130,
@@ -85,7 +88,7 @@
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      window.form.setAddress(window.util.getMapPinCoordinates(mapPinMain), HALF_MAIN_PIN_WIDTH);
+      window.form.setAddress(window.util.getMapPinCoordinates(mapPinMain), HALF_MAIN_PIN_WIDTH, MainPin.HEIGHT);
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
@@ -96,14 +99,27 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  mapPinMain.addEventListener('mouseup', onMapPinMainClick);
-  mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
-  mapPinMain.addEventListener('mousedown', onMainPinMove);
+  mapPinMain.addEventListener('mousedown', onMainPinDown);
+
+  // добавление обработчиков
+  var setMainPinEventListeners = function () {
+    mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
+    mapPinMain.addEventListener('mousedown', onMapPinFirstKeydown);
+  };
+
+  // удаление обработчиков после активации
+  var removeMainPinEventListeners = function () {
+    mapPinMain.removeEventListener('keydown', onMapPinMainKeydown);
+    mapPinMain.removeEventListener('mousedown', onMapPinFirstKeydown);
+  };
 
   window.mainPin = {
     element: mapPinMain,
     startCoords: mainPinInitialPosition,
+    size: MainPin,
     halfWidth: HALF_MAIN_PIN_WIDTH,
-    reset: resetMainPin
+    reset: resetMainPin,
+    addEvtListeners: setMainPinEventListeners,
+    removeEvtListeners: removeMainPinEventListeners
   };
 })();

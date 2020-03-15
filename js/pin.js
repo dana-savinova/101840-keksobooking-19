@@ -6,15 +6,15 @@
   // отрисовка пина с аватаркой на карте
   var renderOfferItem = function (offer) {
     var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-    var offerElement = mapPinTemplate.cloneNode(true);
-    var img = offerElement.querySelector('img');
+    var offerItem = mapPinTemplate.cloneNode(true);
+    var img = offerItem.querySelector('img');
 
-    offerElement.style.left = offer.location.x + 'px';
-    offerElement.style.top = offer.location.y + 'px';
+    offerItem.style.left = offer.location.x + 'px';
+    offerItem.style.top = offer.location.y + 'px';
     img.src = offer.author.avatar;
     img.alt = offer.offer.description;
 
-    return offerElement;
+    return offerItem;
   };
 
   // слушаем нажатие на пины с объявлениями
@@ -32,18 +32,17 @@
     };
 
     // теперь слушаем клик на _каждом_ пине, кроме первой
-    for (var j = 0; j < allAdPins.length; j++) {
-      var pinArray = allAdPins[j];
-      addPinClickListener(pinArray, j);
-    }
+    allAdPins.forEach(function (element, i) {
+      addPinClickListener(element, i);
+    });
   };
 
   // удаление пинов
   var removePins = function () {
     var allAdPins = mapPins.querySelectorAll('.map__pin:not(.map__pin--main');
-    for (var pinIndex = 0; pinIndex < allAdPins.length; pinIndex++) {
-      allAdPins[pinIndex].remove();
-    }
+    allAdPins.forEach(function (element) {
+      element.remove();
+    });
   };
 
   window.pin = {
