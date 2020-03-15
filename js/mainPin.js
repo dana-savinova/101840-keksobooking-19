@@ -36,9 +36,9 @@
     evt.preventDefault();
     // диапазон, в котором метка может перемещаться
     var moveRange = {
-      top: 130,
+      top: 130 - MainPin.HEIGHT,
       right: mapPinsWidth - HALF_MAIN_PIN_WIDTH,
-      bottom: 630, // Для удобства пользователей значение Y-координаты адреса должно быть ограничено интервалом от 130 до 630.
+      bottom: 630 - MainPin.HEIGHT, // Для удобства пользователей значение Y-координаты адреса должно быть ограничено интервалом от 130 до 630.
       left: 0 - HALF_MAIN_PIN_WIDTH
     };
 
