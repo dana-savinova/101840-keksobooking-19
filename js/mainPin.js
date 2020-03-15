@@ -28,7 +28,7 @@
     window.util.actionIfEnterEvent(evt, window.page.activate);
   };
 
-  var onMapPinFistKeydown = function (evt) {
+  var onMapPinFirstKeydown = function (evt) {
     window.util.actionIfLeftBtnEvent(evt, window.page.activate);
   };
 
@@ -104,13 +104,13 @@
   // добавление обработчиков
   var setMainPinEventListeners = function () {
     mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
-    mapPinMain.addEventListener('mousedown', onMapPinFistKeydown);
+    mapPinMain.addEventListener('mousedown', onMapPinFirstKeydown);
   };
 
   // удаление обработчиков после активации
   var removeMainPinEventListeners = function () {
     mapPinMain.removeEventListener('keydown', onMapPinMainKeydown);
-    mapPinMain.removeEventListener('mousedown', onMapPinFistKeydown);
+    mapPinMain.removeEventListener('mousedown', onMapPinFirstKeydown);
   };
 
   window.mainPin = {

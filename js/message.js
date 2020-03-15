@@ -36,8 +36,8 @@
 
   var createSuccessMessage = function () {
     var successTemplate = document.querySelector('#success').content.querySelector('.success');
-    var successElement = successTemplate.cloneNode(true);
-    document.body.insertAdjacentElement('afterbegin', successElement);
+    var successPopup = successTemplate.cloneNode(true);
+    document.body.insertAdjacentElement('afterbegin', successPopup);
 
     var onDocumentKeydown = function (evt) {
       window.util.actionIfEscEvent(evt, function () {
@@ -46,7 +46,7 @@
     };
 
     var removeSuccessMessage = function () {
-      successElement.remove();
+      successPopup.remove();
       window.form.reset();
       document.removeEventListener('click', removeSuccessMessage);
       document.removeEventListener('keydown', onDocumentKeydown);

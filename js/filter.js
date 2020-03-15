@@ -96,7 +96,7 @@
 
   // фильтрация по доп удобствам
   var filterByFeature = function (element) {
-    var featureItems = document.querySelectorAll('.map__checkbox');
+    var featureItems = filterFeatures.querySelectorAll('.map__checkbox');
     var filterResult = true;
     for (var i = 0; i < featureItems.length; i++) {
       if (featureItems[i].checked) {
