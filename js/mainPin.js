@@ -50,6 +50,7 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
+      window.form.setAddress(window.util.getMapPinCoordinates(mapPinMain), HALF_MAIN_PIN_WIDTH, MainPin.HEIGHT);
 
       // расчет смещения
       var shift = {
@@ -88,7 +89,6 @@
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      window.form.setAddress(window.util.getMapPinCoordinates(mapPinMain), HALF_MAIN_PIN_WIDTH, MainPin.HEIGHT);
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
